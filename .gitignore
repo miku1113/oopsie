@@ -9,3 +9,5 @@ __pycache__/
 *.pyc
 .tmp.driveupload/
 .tmp.driveupload*
+.tmp.drivedownload/
+.tmp.drivedownload*

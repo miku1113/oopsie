@@ -17,7 +17,8 @@ import time
 import json
 import threading
 import urllib.parse
-from generate_catalog import scan_catalog_data, generate_catalog_html, get_categories_dir
+import subprocess
+from generate_catalog import scan_catalog_data, generate_catalog_html, get_categories_dir, organize_root_categories
 
 _rebuild_lock = threading.Lock()
 _last_fingerprint = None
@@ -26,13 +27,37 @@ _last_counts = (0, 0)
 def get_catalog_fingerprint(base_dir='.'):
     """
     Computes a fast fingerprint of all category folders and image files.
-    Monitors 'oppsie categories' and its subdirectories.
+    Monitors 'oppsie categories' and its subdirectories, as well as root directories.
     Detects:
-    - Added, deleted, or renamed category folders
+    - Added, deleted, or renamed category folders (in oppsie categories or root)
     - Added, deleted, or modified image files inside category folders
     """
     cat_dir, prefix = get_categories_dir(base_dir)
     items = []
+
+    # 1. Check root directory for any newly created folder from Google Drive / Finder
+    try:
+        base_stat = os.stat(base_dir)
+        items.append(('__root__', base_stat.st_mtime))
+        ignored = {
+            'oppsie categories', 'oopsie categories', 'categories',
+            '.git', '.github', '.tmp.driveupload', '.tmp.drivedownload',
+            '__pycache__', 'scratch', 'node_modules', '.gemini', '.vscode', '.idea'
+        }
+        for entry in os.listdir(base_dir):
+            if entry.startswith('.') or entry in ignored:
+                continue
+            p = os.path.join(base_dir, entry)
+            if os.path.isdir(p):
+                try:
+                    s = os.stat(p)
+                    items.append(('__root_sub__', entry, s.st_mtime))
+                except OSError:
+                    pass
+    except OSError:
+        pass
+
+    # 2. Check main categories directory
     try:
         cat_dir_stat = os.stat(cat_dir)
         items.append(('__cat_dir__', cat_dir_stat.st_mtime))
@@ -61,6 +86,34 @@ def get_catalog_fingerprint(base_dir='.'):
         pass
     return tuple(items)
 
+def git_sync_push(base_dir='.'):
+    """
+    Automatically commits and pushes changes to GitHub origin main
+    so the live website updates in real time.
+    """
+    try:
+        status = subprocess.run(['git', 'status', '--porcelain'], cwd=base_dir, capture_output=True, text=True)
+        if not status.stdout.strip():
+            return False
+
+        print("🌸 [Live Sync] Detected new files! Staging changes...")
+        subprocess.run(['git', 'add', '-A'], cwd=base_dir, check=True)
+
+        msg = f"Auto-sync: update categories & products ({time.strftime('%Y-%m-%d %H:%M:%S')})"
+        subprocess.run(['git', 'commit', '-m', msg], cwd=base_dir, capture_output=True, text=True)
+
+        print("🚀 [Live Sync] Pushing to GitHub (origin main)...")
+        push_res = subprocess.run(['git', 'push', 'origin', 'main'], cwd=base_dir, capture_output=True, text=True, timeout=90)
+        if push_res.returncode == 0:
+            print("✨ [Live Sync] Successfully published to GitHub! Live website updated.")
+            return True
+        else:
+            print(f"⚠️ [Live Sync] Push output: {push_res.stderr.strip() or push_res.stdout.strip()}")
+            return False
+    except Exception as err:
+        print(f"⚠️ [Live Sync] Git push notice: {err}")
+        return False
+
 def sync_catalog(base_dir='.', force=False, verbose=True):
     """
     Scans the directory and rebuilds index.html if any changes are detected.
@@ -83,7 +136,7 @@ def sync_catalog(base_dir='.', force=False, verbose=True):
         except Exception:
             pass
 
-        _last_fingerprint = current_fp
+        _last_fingerprint = get_catalog_fingerprint(base_dir)
         _last_counts = (len(cats), total)
 
         if verbose:
@@ -91,14 +144,29 @@ def sync_catalog(base_dir='.', force=False, verbose=True):
 
         return True, len(cats), total
 
-def folder_watcher_thread(base_dir='.'):
+def folder_watcher_thread(base_dir='.', auto_push=True):
     """
     Background daemon thread that continuously monitors for folder / image changes.
+    When changes occur (e.g. from Google Drive sync or Finder):
+    1. Debounces for 3 seconds to let file transfer finish
+    2. Rebuilds index.html and catalog_data.json
+    3. Pushes to GitHub so the live site updates in real time!
     """
+    last_seen_fp = get_catalog_fingerprint(base_dir)
     while True:
         try:
-            time.sleep(1.0)
-            sync_catalog(base_dir, force=False, verbose=True)
+            time.sleep(1.5)
+            curr_fp = get_catalog_fingerprint(base_dir)
+            if curr_fp != last_seen_fp:
+                # Changes detected! Debounce to let Google Drive or file download finish
+                time.sleep(3.0)
+                # Re-check fingerprint after settling
+                settled_fp = get_catalog_fingerprint(base_dir)
+                last_seen_fp = settled_fp
+
+                updated, cats, prods = sync_catalog(base_dir, force=True, verbose=True)
+                if updated and auto_push:
+                    git_sync_push(base_dir)
         except Exception as e:
             time.sleep(2.0)
 
@@ -175,8 +243,8 @@ def run_server():
     print("\n🌸 Initializing Oopsie Catalog...")
     sync_catalog('.', force=True, verbose=True)
 
-    # Start background folder watcher
-    watcher = threading.Thread(target=folder_watcher_thread, args=('.',), daemon=True)
+    # Start background folder watcher with GitHub live sync enabled
+    watcher = threading.Thread(target=folder_watcher_thread, args=('.', True), daemon=True)
     watcher.start()
 
     port = find_available_port(8080)
@@ -188,19 +256,22 @@ def run_server():
         with socketserver.TCPServer(('0.0.0.0', port), OopsieHTTPRequestHandler) as httpd:
             desktop_url = f"http://localhost:{port}"
             mobile_url = f"http://{local_ip}:{port}"
+            github_url = "https://miku1113.github.io/oopsie/"
 
-            print("\n" + "🌸 " + "=" * 58 + " 🌸")
-            print("        OOPSIE HANDCRAFTED STUDIO • LIVE MOBILE SERVER")
-            print("🌸 " + "=" * 58 + " 🌸")
-            print(f"💻 Desktop URL:       {desktop_url}")
-            print(f"📱 Mobile Phone URL:  {mobile_url}")
-            print("=" * 62)
-            print("✨ Real-Time Folder Detection is ACTIVE on 'oppsie categories'!")
-            print("👉 Open the 'oppsie categories' folder in Finder:")
-            print("   • Add any new folder  -> instantly appears as a new category!")
-            print("   • Delete any folder   -> instantly removed from the catalog!")
-            print("   • Live auto-reload is active on both laptop & mobile!")
-            print("=" * 62)
+            print("\n" + "🌸 " + "=" * 60 + " 🌸")
+            print("        OOPSIE HANDCRAFTED STUDIO • REAL-TIME LIVE SYNC")
+            print("🌸 " + "=" * 60 + " 🌸")
+            print(f"🌍 Live Website URL:  {github_url}")
+            print(f"💻 Local Desktop URL: {desktop_url}")
+            print(f"📱 Local Wi-Fi URL:   {mobile_url}")
+            print("=" * 64)
+            print("✨ Real-Time Google Drive & GitHub Sync is ACTIVE!")
+            print("   • Adding any folder in Google Drive or Finder:")
+            print("     -> Automatically creates new category & products")
+            print("     -> Automatically pushes to GitHub & updates live site in real time!")
+            print("   • Deleting any folder:")
+            print("     -> Automatically removes it from the catalog & live site!")
+            print("=" * 64)
             print("Press Ctrl+C to stop the server anytime.\n")
 
             # Try opening on desktop

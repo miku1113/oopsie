@@ -13,6 +13,7 @@ Generate Oopsie Product Catalog - Cute & Simple Auto-Updating Edition
 import os
 import re
 import json
+import shutil
 import urllib.parse
 
 # Pre-configured categories with custom colors sampled from logo & complementary artisan tones
@@ -203,6 +204,64 @@ def format_folder_name(folder_name):
     words = [word.capitalize() for word in cleaned.split() if word]
     return ' '.join(words)
 
+def organize_root_categories(base_dir='.'):
+    """
+    If the user creates a new category folder directly inside the project root
+    (e.g., from Google Drive root or Finder), this automatically moves it
+    into 'oppsie categories/' so all categories remain centralized and unified.
+    """
+    cat_dir, _ = get_categories_dir(base_dir)
+    if not os.path.exists(cat_dir) or os.path.abspath(cat_dir) == os.path.abspath(base_dir):
+        return
+
+    ignored = {
+        'oppsie categories', 'oopsie categories', 'categories',
+        '.git', '.github', '.tmp.driveupload', '.tmp.drivedownload',
+        '__pycache__', 'scratch', 'node_modules', '.gemini', '.vscode', '.idea'
+    }
+    image_exts = ('.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.avif')
+
+    try:
+        entries = os.listdir(base_dir)
+    except OSError:
+        return
+
+    for entry in entries:
+        if entry.startswith('.') or entry in ignored:
+            continue
+        entry_path = os.path.join(base_dir, entry)
+        if not os.path.isdir(entry_path):
+            continue
+
+        # Check if entry is a directory containing images
+        has_images = False
+        try:
+            for root, dirs, files in os.walk(entry_path):
+                if any(f.lower().endswith(image_exts) for f in files if not f.startswith('.')):
+                    has_images = True
+                    break
+        except Exception:
+            pass
+
+        if has_images:
+            dest_path = os.path.join(cat_dir, entry)
+            print(f"📦 [Auto-Organize] Detected category folder '{entry}' in root. Moving into '{os.path.basename(cat_dir)}/'...")
+            try:
+                if not os.path.exists(dest_path):
+                    shutil.move(entry_path, dest_path)
+                else:
+                    for item in os.listdir(entry_path):
+                        src_item = os.path.join(entry_path, item)
+                        dst_item = os.path.join(dest_path, item)
+                        if not os.path.exists(dst_item):
+                            shutil.move(src_item, dst_item)
+                    try:
+                        os.rmdir(entry_path)
+                    except Exception:
+                        pass
+            except Exception as e:
+                print(f"⚠️ [Auto-Organize] Notice: Could not move {entry}: {e}")
+
 def get_categories_dir(base_dir='.'):
     """
     Finds the main categories directory:
@@ -218,6 +277,12 @@ def get_categories_dir(base_dir='.'):
     return base_dir, ''
 
 def scan_catalog_data(base_dir='.'):
+    # Automatically organize any newly created root folders into oppsie categories
+    try:
+        organize_root_categories(base_dir)
+    except Exception:
+        pass
+
     cat_dir, prefix = get_categories_dir(base_dir)
     categories = []
     ignored = {
