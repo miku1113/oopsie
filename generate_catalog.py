@@ -239,7 +239,7 @@ def generate_catalog_html(collection, total_products, output_path='index.html'):
         count = len(cat['images'])
         btn = f'<button class="category" aria-haspopup="dialog" onclick="openGallery({idx}, this)"><span class="name">{name}</span><span class="count" aria-label="{count} photos">{count}</span></button>'
         category_buttons.append(btn)
-    categories_inner_html = '\\n'.join(category_buttons)
+    categories_inner_html = '\n'.join(category_buttons)
 
     html_content = f"""<!doctype html>
 <html lang="en">
