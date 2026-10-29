@@ -1468,7 +1468,7 @@ def generate_catalog_html(categories, total_products, output_path='index.html'):
     json_path = os.path.join(os.path.dirname(output_path) or '.', 'catalog_data.json')
     try:
         with open(json_path, 'w', encoding='utf-8') as f:
-            f.write(categories_json)
+            json.dump(categories, f, ensure_ascii=False, indent=2)
     except Exception:
         pass
 
