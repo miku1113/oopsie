@@ -225,11 +225,21 @@ def generate_catalog_html(collection, total_products, output_path='index.html'):
     Generates the complete index.html matching https://oopsie-collection.kush-a-jariwala21.chatgpt.site/
     with:
     - 5-color wave animation preloader
+    - Pre-rendered static category markup for instant visual paint
     - Anti-cache meta headers
     - Live real-time polling to update categories dynamically on both localhost and GitHub Pages
     """
     categories_count = len(collection)
     collection_json = json.dumps(collection, ensure_ascii=False)
+
+    # Pre-render category buttons for instantaneous paint
+    category_buttons = []
+    for idx, cat in enumerate(collection):
+        name = cat['name']
+        count = len(cat['images'])
+        btn = f'<button class="category" aria-haspopup="dialog" onclick="openGallery({idx}, this)"><span class="name">{name}</span><span class="count" aria-label="{count} photos">{count}</span></button>'
+        category_buttons.append(btn)
+    categories_inner_html = '\\n'.join(category_buttons)
 
     html_content = f"""<!doctype html>
 <html lang="en">
@@ -307,7 +317,7 @@ def generate_catalog_html(collection, total_products, output_path='index.html'):
 <main class="index">
 <header class="masthead"><img class="logo" src="logo.png" alt="OOPSIE"><span class="small-note">The collection</span></header>
 <div class="intro"><h1>Little things.<br>Happy feelings.</h1><p>A world of colour, charm and everyday joy.<br>Pick a category. Find something that makes you smile.</p></div>
-<nav class="categories" aria-label="Product categories" id="categories"></nav>
+<nav class="categories" aria-label="Product categories" id="categories">{categories_inner_html}</nav>
 <footer class="end"><span>{categories_count} categories to fall in love with.</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>A little world of OOPSIE.</span></footer>
 </main>
 <dialog class="gallery" id="gallery" aria-labelledby="gallery-title"><header class="gallery-head"><div class="gallery-heading"><h2 id="gallery-title"></h2><p id="gallery-meta"></p></div><button class="close" id="close-gallery" autofocus>All categories <span aria-hidden="true">×</span></button></header><div class="photos" id="photos"></div></dialog>
@@ -330,11 +340,11 @@ function dismissPreloader() {{
 const loadStartTime = Date.now();
 function finishLoading() {{
   const elapsed = Date.now() - loadStartTime;
-  const delay = Math.max(0, 600 - elapsed);
+  const delay = Math.max(0, 650 - elapsed);
   setTimeout(dismissPreloader, delay);
 }}
 
-// Render Categories List in the DOM
+// Render Categories List in the DOM dynamically
 function renderCategoriesList(items) {{
   const container = $('categories');
   if (!container) return;
@@ -388,8 +398,7 @@ function fetchLatestCatalog(isInitial = false) {{
     }});
 }}
 
-// Initial render
-renderCategoriesList(collection);
+// Initial load check
 fetchLatestCatalog(true);
 
 // Background poll every 4s (ensures real-time auto updates on GitHub Pages and local)
@@ -406,6 +415,7 @@ function openGallery(index, trigger) {{
   active = index;
   lastCategory = trigger;
   const c = collection[index];
+  if (!c) return;
   $('gallery-title').textContent = c.name;
   $('gallery-meta').textContent = c.images.length + ' photos · Select a photo for a closer look';
   $('photos').replaceChildren();
@@ -445,12 +455,14 @@ function openGallery(index, trigger) {{
 
 function updateViewer() {{
   const c = collection[active];
+  if (!c) return;
   $('full-image').src = c.images[currentPhoto];
   $('full-image').alt = c.name + ' — photo ' + (currentPhoto + 1);
   $('viewer-label').textContent = c.name + ' · ' + (currentPhoto + 1) + ' / ' + c.images.length;
 }}
 
 function step(delta) {{
+  if (!collection[active] || !collection[active].images.length) return;
   currentPhoto = (currentPhoto + delta + collection[active].images.length) % collection[active].images.length;
   updateViewer();
 }}
