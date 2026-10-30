@@ -1,6 +1,20 @@
 [
   {
-    "name": "Fabric Charms",
+    "name": "Jewellery",
+    "folder": "Jewellery",
+    "images": [
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51%20%281%29.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%281%29.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%282%29.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%281%29.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%282%29.jpeg",
+      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53.jpeg"
+    ]
+  },
+  {
+    "name": "Fabric charms",
     "folder": "Fabric charms",
     "images": [
       "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.03.56%20%281%29.jpeg",
@@ -13,7 +27,45 @@
     ]
   },
   {
-    "name": "Beaded Flowers",
+    "name": "Beaded charms",
+    "folder": "Beaded charms",
+    "images": [
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%281%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%282%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%283%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%281%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%282%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%283%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%281%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%282%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52%20%281%29.jpeg",
+      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52.jpeg"
+    ]
+  },
+  {
+    "name": "Bag charms",
+    "folder": "Bag charms",
+    "images": [
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%281%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%282%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%281%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%282%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.23.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%281%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%282%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%283%29.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.25.jpeg",
+      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.46.40.jpeg"
+    ]
+  },
+  {
+    "name": "Beaded flowers",
     "folder": "Beaded flowers",
     "images": [
       "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-28%20at%2005.07.06%20%281%29.jpeg",
@@ -41,95 +93,7 @@
     ]
   },
   {
-    "name": "Plant charms",
-    "folder": "Plant charms",
-    "images": [
-      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%281%29.jpeg",
-      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%282%29.jpeg",
-      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42.jpeg"
-    ]
-  },
-  {
-    "name": "Cross-stitch cards",
-    "folder": "Cross stitch cards",
-    "images": [
-      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%281%29.jpeg",
-      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%282%29.jpeg",
-      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38.jpeg"
-    ]
-  },
-  {
-    "name": "Stickers",
-    "folder": "Stickers",
-    "images": [
-      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02%20%281%29.jpeg",
-      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02.jpeg",
-      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03%20%281%29.jpeg",
-      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03.jpeg"
-    ]
-  },
-  {
-    "name": "Bag Charms",
-    "folder": "Bag charms",
-    "images": [
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%281%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%282%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%281%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%282%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.23.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%281%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%282%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%283%29.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.25.jpeg",
-      "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.46.40.jpeg"
-    ]
-  },
-  {
-    "name": "Beaded Charms",
-    "folder": "Beaded charms",
-    "images": [
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%281%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%282%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%283%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%281%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%282%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%283%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%281%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%282%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52%20%281%29.jpeg",
-      "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52.jpeg"
-    ]
-  },
-  {
-    "name": "Bookmarks",
-    "folder": "Bookmarks",
-    "images": [
-      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.32.jpeg",
-      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%281%29.jpeg",
-      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%282%29.jpeg",
-      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33.jpeg"
-    ]
-  },
-  {
-    "name": "Ceramic Pieces",
-    "folder": "Ceramic pieces",
-    "images": [
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%281%29.jpeg",
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%282%29.jpeg",
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12.jpeg",
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%281%29.jpeg",
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%282%29.jpeg",
-      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13.jpeg"
-    ]
-  },
-  {
-    "name": "Crochet Keychains & Charms",
+    "name": "Crochet keychains & charms",
     "folder": "Crochet keychains & charms",
     "images": [
       "oppsie%20categories/Crochet%20keychains%20%26%20charms/WhatsApp%20Image%202026-10-28%20at%2005.16.16%20%281%29.jpeg",
@@ -143,51 +107,24 @@
     ]
   },
   {
-    "name": "Fridge Magnets",
-    "folder": "Fridge magnets",
+    "name": "Plant charms",
+    "folder": "Plant charms",
     "images": [
-      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%281%29.jpeg",
-      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%282%29.jpeg",
-      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%283%29.jpeg",
-      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44.jpeg"
+      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%281%29.jpeg",
+      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%282%29.jpeg",
+      "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42.jpeg"
     ]
   },
   {
-    "name": "Greeting Cards",
-    "folder": "Greeting cards",
+    "name": "Specs holders",
+    "folder": "Specs holders",
     "images": [
-      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%281%29.jpeg",
-      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%282%29.jpeg",
-      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36.jpeg",
-      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.37%20%281%29.jpeg",
-      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.37.jpeg"
+      "oppsie%20categories/Specs%20holders/WhatsApp%20Image%202026-10-28%20at%2005.35.26%20%281%29.jpeg",
+      "oppsie%20categories/Specs%20holders/WhatsApp%20Image%202026-10-28%20at%2005.35.26.jpeg"
     ]
   },
   {
-    "name": "Jewellery",
-    "folder": "Jewellery",
-    "images": [
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51%20%281%29.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%281%29.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%282%29.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%281%29.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%282%29.jpeg",
-      "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53.jpeg"
-    ]
-  },
-  {
-    "name": "Postcards",
-    "folder": "Postcards",
-    "images": [
-      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%281%29.jpeg",
-      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%282%29.jpeg",
-      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32.jpeg"
-    ]
-  },
-  {
-    "name": "Pouches, Wallets & Tablet Sleeves",
+    "name": "Pouches & sleeves",
     "folder": "Pouches, wallets & tablet sleeves",
     "images": [
       "oppsie%20categories/Pouches%2C%20wallets%20%26%20tablet%20sleeves/WhatsApp%20Image%202026-10-28%20at%2005.22.03%20%281%29.jpeg",
@@ -205,39 +142,7 @@
     ]
   },
   {
-    "name": "Small Frames",
-    "folder": "Small frames",
-    "images": [
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%281%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%282%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%281%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%282%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%283%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%281%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%282%29.jpeg",
-      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27.jpeg"
-    ]
-  },
-  {
-    "name": "Specs Holders",
-    "folder": "Specs holders",
-    "images": [
-      "oppsie%20categories/Specs%20holders/WhatsApp%20Image%202026-10-28%20at%2005.35.26%20%281%29.jpeg",
-      "oppsie%20categories/Specs%20holders/WhatsApp%20Image%202026-10-28%20at%2005.35.26.jpeg"
-    ]
-  },
-  {
-    "name": "Sticker Cards",
-    "folder": "Sticker cards",
-    "images": [
-      "oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.34.jpeg",
-      "oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.35.jpeg"
-    ]
-  },
-  {
-    "name": "Wallets, And Sleeves",
+    "name": "Wallets & sleeves",
     "folder": "Wallets,and sleeves",
     "images": [
       "oppsie%20categories/Wallets%2Cand%20sleeves/WhatsApp%20Image%202026-10-30%20at%2001.52.06%20%281%29.jpeg",
@@ -253,6 +158,101 @@
       "oppsie%20categories/Wallets%2Cand%20sleeves/WhatsApp%20Image%202026-10-30%20at%2001.58.21%20%282%29.jpeg",
       "oppsie%20categories/Wallets%2Cand%20sleeves/WhatsApp%20Image%202026-10-30%20at%2001.58.21%20%283%29.jpeg",
       "oppsie%20categories/Wallets%2Cand%20sleeves/WhatsApp%20Image%202026-10-30%20at%2001.58.21.jpeg"
+    ]
+  },
+  {
+    "name": "Ceramic pieces",
+    "folder": "Ceramic pieces",
+    "images": [
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%281%29.jpeg",
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%282%29.jpeg",
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12.jpeg",
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%281%29.jpeg",
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%282%29.jpeg",
+      "oppsie%20categories/Ceramic%20pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13.jpeg"
+    ]
+  },
+  {
+    "name": "Small frames",
+    "folder": "Small frames",
+    "images": [
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%281%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%282%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%281%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%282%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%283%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%281%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%282%29.jpeg",
+      "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27.jpeg"
+    ]
+  },
+  {
+    "name": "Fridge magnets",
+    "folder": "Fridge magnets",
+    "images": [
+      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%281%29.jpeg",
+      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%282%29.jpeg",
+      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%283%29.jpeg",
+      "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44.jpeg"
+    ]
+  },
+  {
+    "name": "Greeting cards",
+    "folder": "Greeting cards",
+    "images": [
+      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%281%29.jpeg",
+      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%282%29.jpeg",
+      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.36.jpeg",
+      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.37%20%281%29.jpeg",
+      "oppsie%20categories/Greeting%20cards/WhatsApp%20Image%202026-10-28%20at%2004.40.37.jpeg"
+    ]
+  },
+  {
+    "name": "Postcards",
+    "folder": "Postcards",
+    "images": [
+      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%281%29.jpeg",
+      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%282%29.jpeg",
+      "oppsie%20categories/Postcards/WhatsApp%20Image%202026-10-28%20at%2004.24.32.jpeg"
+    ]
+  },
+  {
+    "name": "Cross-stitch cards",
+    "folder": "Cross stitch cards",
+    "images": [
+      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%281%29.jpeg",
+      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%282%29.jpeg",
+      "oppsie%20categories/Cross%20stitch%20cards/WhatsApp%20Image%202026-10-28%20at%2005.30.38.jpeg"
+    ]
+  },
+  {
+    "name": "Sticker cards",
+    "folder": "Sticker cards",
+    "images": [
+      "oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.34.jpeg",
+      "oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.35.jpeg"
+    ]
+  },
+  {
+    "name": "Stickers",
+    "folder": "Stickers",
+    "images": [
+      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02%20%281%29.jpeg",
+      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02.jpeg",
+      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03%20%281%29.jpeg",
+      "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03.jpeg"
+    ]
+  },
+  {
+    "name": "Bookmarks",
+    "folder": "Bookmarks",
+    "images": [
+      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.32.jpeg",
+      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%281%29.jpeg",
+      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%282%29.jpeg",
+      "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33.jpeg"
     ]
   }
 ]
