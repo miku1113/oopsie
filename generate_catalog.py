@@ -101,7 +101,8 @@ def organize_root_categories(base_dir='.'):
     ignored = {
         'oppsie categories', 'oopsie categories', 'categories',
         '.git', '.github', '.tmp.driveupload', '.tmp.drivedownload',
-        '__pycache__', 'scratch', 'node_modules', '.gemini', '.vscode', '.idea'
+        '__pycache__', 'scratch', 'node_modules', '.gemini', '.vscode', '.idea',
+        'archive'
     }
     image_exts = ('.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.avif')
 
@@ -165,7 +166,8 @@ def scan_catalog_data(base_dir='.'):
     cat_dir, prefix = get_categories_dir(base_dir)
     ignored = {
         'oppsie categories', 'oopsie categories', 'categories',
-        '.git', '.vscode', '.idea', '__pycache__', 'scratch', 'node_modules', '.gemini'
+        '.git', '.vscode', '.idea', '__pycache__', 'scratch', 'node_modules', '.gemini',
+        'archive'
     }
 
     try:
