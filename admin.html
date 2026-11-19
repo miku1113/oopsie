@@ -56,7 +56,7 @@ main{padding:22px 28px 80px;min-width:0}
 .dropzone{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;border:2px dashed var(--line);border-radius:14px;padding:18px 16px;margin-bottom:6px;text-align:center;cursor:pointer;font-size:14px}
 .dropzone small{font-size:12px;color:var(--quiet)}
 .dropzone:hover,.dropzone.over{border-color:var(--pink);background:rgba(246,164,153,.12)}
-.dragging-files .zone,.dragging-files .dropzone{outline:2px dashed var(--pink);outline-offset:-6px}
+.dragging-files .zone:not(.trash-grid),.dragging-files .dropzone{outline:2px dashed var(--pink);outline-offset:-6px}
 .group{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;background:rgba(79,75,51,.35)}
 .group.unsorted{border-style:dashed}
 .group-head{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -612,7 +612,7 @@ function renderTrash() {
       entries.length ? el('button', { type: 'button', class: 'btn', onclick: () => restore([...state.trash]) }, 'Restore all') : null),
     el('p', { class: 'hint', text: 'Deleted photos stay in the repo and are hidden from the site. Restore puts a photo back where it was, and recreates its category or product if that was deleted too.' }),
     el('section', { class: 'group' },
-      el('div', { class: 'zone' },
+      el('div', { class: 'zone trash-grid' },
         ...entries.map(card),
         entries.length ? null : el('div', { class: 'empty', text: 'Trash is empty.' }))));
 }
