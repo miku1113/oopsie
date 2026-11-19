@@ -66,12 +66,101 @@
     {
       "id": "fridge-magnets",
       "name": "Fridge magnets",
-      "products": [],
+      "products": [
+        {
+          "id": "p-wgo16u4d",
+          "name": "P1",
+          "images": [
+            "images/882e1290e13251cc.jpeg",
+            "images/a6053a8e2eaa6bd6.jpeg",
+            "images/57b8db8a62a04990.jpeg",
+            "images/e83be085841186c8.jpeg",
+            "images/3f2c89a4f92944ca.jpeg"
+          ]
+        },
+        {
+          "id": "p-9o6cif0f",
+          "name": "P2",
+          "images": [
+            "images/288c50658972fb44.jpeg",
+            "images/ad043682cfcbf228.jpeg",
+            "images/1d726c185868dc9e.jpeg",
+            "images/91051d8155c8cbc8.jpeg"
+          ]
+        },
+        {
+          "id": "p-bsf4qgf0",
+          "name": "P3",
+          "images": [
+            "images/7fed7a82e86dd987.jpeg",
+            "images/b1df45d4ca957db2.jpeg"
+          ]
+        },
+        {
+          "id": "p-8e7pkpx6",
+          "name": "P4",
+          "images": [
+            "images/bb70b07a7fe70843.jpeg",
+            "images/f4746a56da49fea2.jpeg"
+          ]
+        },
+        {
+          "id": "p-4mcqi3rc",
+          "name": "P5",
+          "images": [
+            "images/0c6943b4fa6579f1.jpeg",
+            "images/ea670d78a9dce07d.jpeg",
+            "images/c8ad4e320f4a581a.jpeg"
+          ]
+        },
+        {
+          "id": "p-2dlqsbak",
+          "name": "P6",
+          "images": [
+            "images/7655759a41c7377d.jpeg",
+            "images/115fc0755075dcd6.jpeg",
+            "images/c0b227580238038c.jpeg",
+            "images/d9b211aac12d9611.jpeg",
+            "images/d01904e2a1b6cb51.jpeg",
+            "images/4ea490b19ed081f3.jpeg",
+            "images/8f9fae9b533476bf.jpeg",
+            "images/4a984476412a1858.jpeg"
+          ]
+        },
+        {
+          "id": "p-mt8edujk",
+          "name": "P7",
+          "images": [
+            "images/a93cb4961cede064.jpeg",
+            "images/98ef4528f2126be7.jpeg"
+          ]
+        },
+        {
+          "id": "p-a89wc6o6",
+          "name": "P8",
+          "images": [
+            "images/0abb573505e77562.jpeg"
+          ]
+        },
+        {
+          "id": "p-phhb8x0r",
+          "name": "P9",
+          "images": [
+            "images/d53ba7e31478f74a.jpeg"
+          ]
+        },
+        {
+          "id": "p-rdhukj7o",
+          "name": "P10",
+          "images": [
+            "images/ac79ef77f8cef8ba.jpeg"
+          ]
+        }
+      ],
       "images": [
-        "images/4c0316d075ec4747.jpeg",
-        "images/d129dfb123f0158a.jpeg",
-        "images/b66d983b4484a2ce.jpeg",
-        "images/db4e20707457143f.jpeg"
+        "images/b7cea0069db57b9d.jpeg",
+        "images/19c14b8970c245b7.jpeg",
+        "images/1cebafa938fa2e4c.jpeg"
       ]
     },
     {
@@ -81,14 +170,11 @@
       "images": [
         "images/d8ca83180512e4bc.jpeg",
         "images/23149c811cd65a78.jpeg",
-        "images/12dbe1b4981447ae.jpeg",
-        "images/b7cea0069db57b9d.jpeg",
-        "images/1cebafa938fa2e4c.jpeg",
-        "images/36c76695a693955d.jpeg",
-        "images/f60e0eb577d82aaf.jpeg",
         "images/2d7df0ce278967c0.jpeg",
-        "images/2c0296c53a4fb641.jpeg",
-        "images/19c14b8970c245b7.jpeg"
+        "images/c2d5878d43e8b3aa.jpeg",
+        "images/d46a716099064f89.jpeg",
+        "images/aa55f055b4edeb4e.jpeg",
+        "images/fc18e8677a3dcdb4.jpeg"
       ]
     },
     {
