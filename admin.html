@@ -20,6 +20,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn.primary:hover{background:#ffbcb2}
 .btn.danger{color:var(--danger)}
 .btn:disabled{opacity:.5;cursor:default}
+.btn[hidden]{display:none}
 .bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 24px;background:var(--deep);border-bottom:1px solid var(--line)}
 .bar img{height:40px}
 .bar h1{font-family:Palatino,'Book Antiqua',serif;font-weight:400;font-size:22px;margin:0;flex:1}
@@ -223,9 +224,13 @@ function movePhotos(paths, catId, prodId, beforePath = null) {
   const list = targetList(catId, prodId);
   if (!list || !paths.length) return;
   const moving = paths.filter(p => locate(p));
+  // Insert before the first photo at or after beforePath that is not itself moving.
+  let anchor = null;
+  if (beforePath && list.includes(beforePath)) {
+    anchor = list.slice(list.indexOf(beforePath)).find(p => !moving.includes(p)) || null;
+  }
   moving.forEach(p => { const at = locate(p); at.list.splice(at.list.indexOf(p), 1); });
-  let index = beforePath ? list.indexOf(beforePath) : -1;
-  if (index < 0) index = list.length;
+  const index = anchor ? list.indexOf(anchor) : list.length;
   list.splice(index, 0, ...moving);
   moving.forEach(p => selected.delete(p));
   save();
@@ -368,7 +373,9 @@ function openMenu(anchor, build) {
   menu.querySelector('button')?.focus();
 }
 function item(label, action, cls) {
-  return el('button', { type: 'button', role: 'menuitem', class: cls, onclick: () => { closeMenu(); action(); } }, label);
+  // stopPropagation: an action may rebuild the menu, and the document click
+  // handler would otherwise see a detached target and close the new menu.
+  return el('button', { type: 'button', role: 'menuitem', class: cls, onclick: e => { e.stopPropagation(); closeMenu(); action(); } }, label);
 }
 // Menu entries for moving `paths`, used by the per-photo menu.
 function moveItems(anchor, paths) {
@@ -416,7 +423,7 @@ document.addEventListener('keydown', e => {
   }
 });
 addEventListener('resize', closeMenu);
-addEventListener('scroll', closeMenu, true);
+addEventListener('scroll', e => { if (!$('menu').contains(e.target)) closeMenu(); }, true);
 
 // ---------- drag and drop ----------
 function hasPhotos(e) { return dragPaths && e.dataTransfer.types.includes(DRAG_TYPE); }

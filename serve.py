@@ -119,7 +119,7 @@ class OopsieHandler(http.server.SimpleHTTPRequestHandler):
             self.path = '/logo.png'
         elif path == '/api/catalog':
             return self.send_json(200, load_catalog('.'))
-        elif path in ('/admin', '/admin/'):
+        elif path == '/admin':
             self.path = '/admin.html'
         return super().do_GET()
 
