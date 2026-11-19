@@ -106,23 +106,7 @@
       "name": "Fabric charms",
       "products": [],
       "images": [
-        "images/1ffb4cd8dddb9e67.jpeg",
-        "images/92ed493a109f1f99.jpeg",
-        "images/387831f6159cf9cc.jpeg",
-        "images/3a526f13a1063d0e.jpeg",
-        "images/6e49bfee3e4bdcff.jpeg",
-        "images/6b2ba8f3b26efc3a.jpeg",
-        "images/92a6cc696617ac05.jpeg"
-      ]
-    },
-    {
-      "id": "bag-charms",
-      "name": "Bag charms",
-      "products": [],
-      "images": [
         "images/cf5ad6a45879b6cd.jpeg",
-        "images/e3ee35f5a7abfed7.jpeg",
-        "images/1b934a5fd94708d2.jpeg",
         "images/2b9719222a97dd1e.jpeg",
         "images/7e604deef9d36805.jpeg",
         "images/6bcf2781fb3e6797.jpeg",
@@ -130,10 +114,14 @@
         "images/1ce7e601ff82b0eb.jpeg",
         "images/ffe0b8cc9f66401a.jpeg",
         "images/2b2bcd2a077abebd.jpeg",
-        "images/ee2b9869e6ba0f80.jpeg",
-        "images/e1bf6f5d8a908a76.jpeg",
-        "images/30115b0da1441f79.jpeg"
+        "images/e1bf6f5d8a908a76.jpeg"
       ]
+    },
+    {
+      "id": "bag-charms",
+      "name": "Bag charms",
+      "products": [],
+      "images": []
     },
     {
       "id": "beaded-charms",
@@ -158,29 +146,64 @@
     {
       "id": "beaded-flowers",
       "name": "Beaded flowers",
-      "products": [],
-      "images": [
-        "images/c60867135e516992.jpeg",
-        "images/7b1d71ef617d2aa4.jpeg",
-        "images/bffb3cd3a28e4eee.jpeg",
-        "images/f0de5c7cf4815983.jpeg",
-        "images/1761c482007f83d4.jpeg",
-        "images/338cc75112129960.jpeg",
-        "images/050dd25e8807c18b.jpeg",
-        "images/33ad63c3d1f478ff.jpeg",
-        "images/65ceadf8a5f0f2b7.jpeg",
-        "images/61da5166b6e105b6.jpeg",
-        "images/f0dda537a27d61b4.jpeg",
-        "images/b63050073b61c97b.jpeg",
-        "images/3d4e7a60f6a76efc.jpeg",
-        "images/f8ae2bcaf2afae9e.jpeg",
-        "images/52edb91f875cbeb1.jpeg",
-        "images/b0842de8cb4bba54.jpeg",
-        "images/94f9552e48527ccd.jpeg",
-        "images/00701758ee7d2a6a.jpeg",
-        "images/5b5d047550469754.jpeg",
-        "images/4ceb33efba41fa0f.jpeg"
-      ]
+      "products": [
+        {
+          "id": "p-ixlwv9x9",
+          "name": "P1",
+          "images": [
+            "images/bffb3cd3a28e4eee.jpeg",
+            "images/f0de5c7cf4815983.jpeg"
+          ]
+        },
+        {
+          "id": "p-vyxzifje",
+          "name": "P2",
+          "images": [
+            "images/1761c482007f83d4.jpeg",
+            "images/338cc75112129960.jpeg",
+            "images/050dd25e8807c18b.jpeg",
+            "images/00701758ee7d2a6a.jpeg"
+          ]
+        },
+        {
+          "id": "p-4astjol9",
+          "name": "P3",
+          "images": [
+            "images/33ad63c3d1f478ff.jpeg",
+            "images/65ceadf8a5f0f2b7.jpeg"
+          ]
+        },
+        {
+          "id": "p-i28obg5i",
+          "name": "P4",
+          "images": [
+            "images/b0842de8cb4bba54.jpeg",
+            "images/94f9552e48527ccd.jpeg"
+          ]
+        },
+        {
+          "id": "p-zfevndml",
+          "name": "P5",
+          "images": [
+            "images/61da5166b6e105b6.jpeg"
+          ]
+        },
+        {
+          "id": "p-8m0ifxpg",
+          "name": "P6",
+          "images": [
+            "images/f0dda537a27d61b4.jpeg"
+          ]
+        },
+        {
+          "id": "p-0cmelzvf",
+          "name": "P7",
+          "images": [
+            "images/5b5d047550469754.jpeg"
+          ]
+        }
+      ],
+      "images": []
     },
     {
       "id": "crochet-charms",
