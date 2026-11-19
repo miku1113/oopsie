@@ -54,14 +54,44 @@
     {
       "id": "greeting-card",
       "name": "Greeting card",
-      "products": [],
-      "images": [
-        "images/e3fecbc1b56e4f22.jpeg",
-        "images/f2b1d5226600b8cf.jpeg",
-        "images/7cc2b1d5d236e769.jpeg",
-        "images/0559547f1df35a77.jpeg",
-        "images/9f8dea03a5062385.jpeg"
-      ]
+      "products": [
+        {
+          "id": "p-b38y3qhy",
+          "name": "P1",
+          "images": [
+            "images/f2b1d5226600b8cf.jpeg",
+            "images/7cc2b1d5d236e769.jpeg",
+            "images/0559547f1df35a77.jpeg",
+            "images/9f8dea03a5062385.jpeg",
+            "images/bff4c3cf09b75b74.jpeg",
+            "images/586281570b7b79aa.jpeg",
+            "images/4f30e160d0eef4cf.jpeg"
+          ]
+        },
+        {
+          "id": "p-08ke2srs",
+          "name": "P2",
+          "images": [
+            "images/57b9c13d850ff589.jpeg",
+            "images/4893c46ae4384b1d.jpeg"
+          ]
+        },
+        {
+          "id": "p-5tt125z6",
+          "name": "P3",
+          "images": [
+            "images/2b80efae0c781353.jpeg"
+          ]
+        },
+        {
+          "id": "p-xlrq9vg6",
+          "name": "P4",
+          "images": [
+            "images/f8caeb4ce44a1888.jpeg"
+          ]
+        }
+      ],
+      "images": []
     },
     {
       "id": "fridge-magnets",
@@ -166,16 +196,28 @@
     {
       "id": "small-frames",
       "name": "Small frames",
-      "products": [],
-      "images": [
-        "images/d8ca83180512e4bc.jpeg",
-        "images/23149c811cd65a78.jpeg",
-        "images/2d7df0ce278967c0.jpeg",
-        "images/c2d5878d43e8b3aa.jpeg",
-        "images/d46a716099064f89.jpeg",
-        "images/aa55f055b4edeb4e.jpeg",
-        "images/fc18e8677a3dcdb4.jpeg"
-      ]
+      "products": [
+        {
+          "id": "p-rc5zn1o8",
+          "name": "P1",
+          "images": [
+            "images/23149c811cd65a78.jpeg",
+            "images/fc18e8677a3dcdb4.jpeg"
+          ]
+        },
+        {
+          "id": "p-830kzxiw",
+          "name": "P2",
+          "images": [
+            "images/d8ca83180512e4bc.jpeg",
+            "images/2d7df0ce278967c0.jpeg",
+            "images/c2d5878d43e8b3aa.jpeg",
+            "images/d46a716099064f89.jpeg",
+            "images/aa55f055b4edeb4e.jpeg"
+          ]
+        }
+      ],
+      "images": []
     },
     {
       "id": "ceramic-pieces",
@@ -416,6 +458,24 @@
         }
       ],
       "images": []
+    }
+  ],
+  "trash": [
+    {
+      "path": "images/92f1db7378c45733.jpeg",
+      "deletedAt": "2026-11-19T22:31:08.366Z",
+      "categoryId": "greeting-card",
+      "categoryName": "Greeting card",
+      "productId": null,
+      "productName": null
+    },
+    {
+      "path": "images/e3fecbc1b56e4f22.jpeg",
+      "deletedAt": "2026-11-19T22:31:42.282Z",
+      "categoryId": "greeting-card",
+      "categoryName": "Greeting card",
+      "productId": null,
+      "productName": null
     }
   ]
 }
