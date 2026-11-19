@@ -1,0 +1,275 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "postcard",
+      "name": "Postcard",
+      "products": [],
+      "images": [
+        "images/2edd94481c1a670e.jpeg",
+        "images/7a56426c8ad41c0c.jpeg",
+        "images/e3bacb529327ea1b.jpeg"
+      ]
+    },
+    {
+      "id": "stickers",
+      "name": "Stickers",
+      "products": [],
+      "images": [
+        "images/6cc2e0b0dd8dad73.jpeg",
+        "images/270d4e49fde1b409.jpeg",
+        "images/e84d511ec8e73253.jpeg",
+        "images/3024b9fefe951d5d.jpeg"
+      ]
+    },
+    {
+      "id": "bookmarks",
+      "name": "Bookmarks",
+      "products": [],
+      "images": [
+        "images/592116472782d645.jpeg",
+        "images/185fb9aeae5b36e9.jpeg",
+        "images/d9378f888761e5fc.jpeg",
+        "images/3af8200bfbf5154f.jpeg"
+      ]
+    },
+    {
+      "id": "jewellery",
+      "name": "Jewellery",
+      "products": [],
+      "images": [
+        "images/70abbb22c71277a3.jpeg",
+        "images/80f31c4d9dd1f611.jpeg",
+        "images/00027b87b4977344.jpeg",
+        "images/4cfbe665c108d60c.jpeg",
+        "images/698c89dee055f7e0.jpeg",
+        "images/ff64bd8ce61d11d5.jpeg",
+        "images/19e66304276d4066.jpeg",
+        "images/f568fc091782d34e.jpeg"
+      ]
+    },
+    {
+      "id": "greeting-card",
+      "name": "Greeting card",
+      "products": [],
+      "images": [
+        "images/e3fecbc1b56e4f22.jpeg",
+        "images/f2b1d5226600b8cf.jpeg",
+        "images/7cc2b1d5d236e769.jpeg",
+        "images/0559547f1df35a77.jpeg",
+        "images/9f8dea03a5062385.jpeg"
+      ]
+    },
+    {
+      "id": "fridge-magnets",
+      "name": "Fridge magnets",
+      "products": [],
+      "images": [
+        "images/4c0316d075ec4747.jpeg",
+        "images/d129dfb123f0158a.jpeg",
+        "images/b66d983b4484a2ce.jpeg",
+        "images/db4e20707457143f.jpeg"
+      ]
+    },
+    {
+      "id": "small-frames",
+      "name": "Small frames",
+      "products": [],
+      "images": [
+        "images/d8ca83180512e4bc.jpeg",
+        "images/23149c811cd65a78.jpeg",
+        "images/12dbe1b4981447ae.jpeg",
+        "images/b7cea0069db57b9d.jpeg",
+        "images/1cebafa938fa2e4c.jpeg",
+        "images/36c76695a693955d.jpeg",
+        "images/f60e0eb577d82aaf.jpeg",
+        "images/2d7df0ce278967c0.jpeg",
+        "images/2c0296c53a4fb641.jpeg",
+        "images/19c14b8970c245b7.jpeg"
+      ]
+    },
+    {
+      "id": "ceramic-pieces",
+      "name": "Ceramic Pieces",
+      "products": [],
+      "images": [
+        "images/b0aae5ff81656e73.jpeg",
+        "images/6bb652e35fb1acbf.jpeg",
+        "images/ed89a072bcf71a46.jpeg",
+        "images/65c391a879539996.jpeg",
+        "images/5bed5b681eca3f34.jpeg",
+        "images/bfc1dc88fde7941b.jpeg"
+      ]
+    },
+    {
+      "id": "fabric-charms",
+      "name": "Fabric charms",
+      "products": [],
+      "images": [
+        "images/1ffb4cd8dddb9e67.jpeg",
+        "images/92ed493a109f1f99.jpeg",
+        "images/387831f6159cf9cc.jpeg",
+        "images/3a526f13a1063d0e.jpeg",
+        "images/6e49bfee3e4bdcff.jpeg",
+        "images/6b2ba8f3b26efc3a.jpeg",
+        "images/92a6cc696617ac05.jpeg"
+      ]
+    },
+    {
+      "id": "bag-charms",
+      "name": "Bag charms",
+      "products": [],
+      "images": [
+        "images/cf5ad6a45879b6cd.jpeg",
+        "images/e3ee35f5a7abfed7.jpeg",
+        "images/1b934a5fd94708d2.jpeg",
+        "images/2b9719222a97dd1e.jpeg",
+        "images/7e604deef9d36805.jpeg",
+        "images/6bcf2781fb3e6797.jpeg",
+        "images/c6f465c60547d2a6.jpeg",
+        "images/1ce7e601ff82b0eb.jpeg",
+        "images/ffe0b8cc9f66401a.jpeg",
+        "images/2b2bcd2a077abebd.jpeg",
+        "images/ee2b9869e6ba0f80.jpeg",
+        "images/e1bf6f5d8a908a76.jpeg",
+        "images/30115b0da1441f79.jpeg"
+      ]
+    },
+    {
+      "id": "beaded-charms",
+      "name": "Beaded charms",
+      "products": [],
+      "images": [
+        "images/ad2e602135dcaf4e.jpeg",
+        "images/86da14ceacea9245.jpeg",
+        "images/75e96ead29341b3f.jpeg",
+        "images/e71d9aac5c20df9d.jpeg",
+        "images/a3bb71a7cac375cc.jpeg",
+        "images/18cbb807f9561728.jpeg",
+        "images/1a922209216057a8.jpeg",
+        "images/517b8fde350ba8f9.jpeg",
+        "images/24f269426eff033b.jpeg",
+        "images/1ae365d2ce7faa1d.jpeg",
+        "images/ec8271293b14311f.jpeg",
+        "images/a5f23d62eeef309b.jpeg",
+        "images/4cef9b4a041aa23c.jpeg"
+      ]
+    },
+    {
+      "id": "beaded-flowers",
+      "name": "Beaded flowers",
+      "products": [],
+      "images": [
+        "images/c60867135e516992.jpeg",
+        "images/7b1d71ef617d2aa4.jpeg",
+        "images/bffb3cd3a28e4eee.jpeg",
+        "images/f0de5c7cf4815983.jpeg",
+        "images/1761c482007f83d4.jpeg",
+        "images/338cc75112129960.jpeg",
+        "images/050dd25e8807c18b.jpeg",
+        "images/33ad63c3d1f478ff.jpeg",
+        "images/65ceadf8a5f0f2b7.jpeg",
+        "images/61da5166b6e105b6.jpeg",
+        "images/f0dda537a27d61b4.jpeg",
+        "images/b63050073b61c97b.jpeg",
+        "images/3d4e7a60f6a76efc.jpeg",
+        "images/f8ae2bcaf2afae9e.jpeg",
+        "images/52edb91f875cbeb1.jpeg",
+        "images/b0842de8cb4bba54.jpeg",
+        "images/94f9552e48527ccd.jpeg",
+        "images/00701758ee7d2a6a.jpeg",
+        "images/5b5d047550469754.jpeg",
+        "images/4ceb33efba41fa0f.jpeg"
+      ]
+    },
+    {
+      "id": "crochet-charms",
+      "name": "Crochet charms",
+      "products": [],
+      "images": [
+        "images/59f5d349c90625e9.jpeg",
+        "images/651c507adea5c37d.jpeg",
+        "images/8ba5d11a93a4071e.jpeg"
+      ]
+    },
+    {
+      "id": "crochet-keychains",
+      "name": "Crochet keychains",
+      "products": [],
+      "images": [
+        "images/82ca7de58ea0684d.jpeg",
+        "images/de892516fb9c6d7b.jpeg",
+        "images/6b756118ca30f06e.jpeg",
+        "images/55104908c1890fb3.jpeg",
+        "images/644207c28c3970f6.jpeg"
+      ]
+    },
+    {
+      "id": "beaded-plants",
+      "name": "Beaded Plants",
+      "products": [],
+      "images": [
+        "images/159c7cd3d562c20d.jpeg",
+        "images/c356cda4bdc5d73d.jpeg"
+      ]
+    },
+    {
+      "id": "cross-stitch-card",
+      "name": "Cross stitch card",
+      "products": [],
+      "images": [
+        "images/806d6b965c53ae1c.jpeg",
+        "images/715d760d2c0bce9f.jpeg",
+        "images/f06d9bac0b1eb75f.jpeg"
+      ]
+    },
+    {
+      "id": "sticker-cards",
+      "name": "Sticker cards",
+      "products": [],
+      "images": [
+        "images/9d269c962f9eb093.jpeg",
+        "images/63246694ba4be4d8.jpeg"
+      ]
+    },
+    {
+      "id": "specs-holder",
+      "name": "Specs holder",
+      "products": [],
+      "images": [
+        "images/05da7865245ce2e3.jpeg",
+        "images/6e6f669011862367.jpeg"
+      ]
+    },
+    {
+      "id": "plant-charms",
+      "name": "Plant charms",
+      "products": [],
+      "images": [
+        "images/8dfc03b444ece713.jpeg",
+        "images/1a39ddd90d4c77dc.jpeg",
+        "images/df59c490c5ac7b0a.jpeg"
+      ]
+    },
+    {
+      "id": "book-tablet-sleeves-cute-small-pouches-wallets",
+      "name": "Book & Tablet Sleeves & Cute Small Pouches & Wallets",
+      "products": [],
+      "images": [
+        "images/786218e828fe3599.jpeg",
+        "images/c9c496bae21eed26.jpeg",
+        "images/c3a5f17f83b4f034.jpeg",
+        "images/0e0c51a31e126706.jpeg",
+        "images/a80e8dc243d74e4a.jpeg",
+        "images/2099c53dba0d516c.jpeg",
+        "images/a6964659cc22a0df.jpeg",
+        "images/ea1e57d5ec54542f.jpeg",
+        "images/01b8c6b8621d2a04.jpeg",
+        "images/44fa962e78ce3b4f.jpeg",
+        "images/5c4bcec088b41676.jpeg",
+        "images/4f048e3bdf643e16.jpeg",
+        "images/1aa6cbef8ae51eb3.jpeg"
+      ]
+    }
+  ]
+}
