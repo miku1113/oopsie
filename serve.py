@@ -1,222 +1,159 @@
 #!/usr/bin/env python3
 """
-Oopsie Handcrafted Studio - Live Mobile Server & Auto-Sync Engine
-- Serves the cute catalog on your local Wi-Fi network so phones can open it
-- Watches the project directory in real-time
-- Adding any new folder or dropping photos instantly creates a new category
-  and updates the catalog with 0 manual steps!
+Oopsie Handcrafted Studio - local server + catalog admin
+
+- Serves the catalog on your Wi-Fi network so phones can open it
+- /admin.html lets you add, rename, delete and reorder categories and products,
+  upload and delete photos, and move photos into products (drag and drop or menu)
+- Every change is saved to catalog.json + images/ in this repo and index.html is rebuilt
+- "Publish" in the admin commits those files and pushes them to GitHub (live site)
 """
 
+import hashlib
 import http.server
-import socketserver
-import socket
-import webbrowser
-import os
-import sys
-import time
 import json
-import threading
-import urllib.parse
+import os
+import socket
+import socketserver
 import subprocess
-from generate_catalog import scan_catalog_data, generate_catalog_html, get_categories_dir, organize_root_categories
+import sys
+import threading
+import time
+import urllib.parse
+import webbrowser
 
-_rebuild_lock = threading.Lock()
-_last_fingerprint = None
-_last_counts = (0, 0)
+from generate_catalog import (
+    CatalogError, IMAGE_EXTS, IMAGES_DIR, catalog_images, load_catalog, save_catalog,
+)
 
-def get_catalog_fingerprint(base_dir='.'):
-    """
-    Computes a fast fingerprint of all category folders and image files.
-    Monitors 'oppsie categories' and its subdirectories, as well as root directories.
-    Detects:
-    - Added, deleted, or renamed category folders (in oppsie categories or root)
-    - Added, deleted, or modified image files inside category folders
-    """
-    cat_dir, prefix = get_categories_dir(base_dir)
-    items = []
+MAX_UPLOAD_BYTES = 40 * 1024 * 1024
+LIVE_URL = 'https://miku1113.github.io/oopsie/'
+PUBLISH_PATHS = ['catalog.json', 'index.html', IMAGES_DIR]
 
-    # 1. Check root directory for any newly created folder from Google Drive / Finder
-    try:
-        base_stat = os.stat(base_dir)
-        items.append(('__root__', base_stat.st_mtime))
-        ignored = {
-            'oppsie categories', 'oopsie categories', 'categories',
-            '.git', '.github', '.tmp.driveupload', '.tmp.drivedownload',
-            '__pycache__', 'scratch', 'node_modules', '.gemini', '.vscode', '.idea'
-        }
-        for entry in os.listdir(base_dir):
-            if entry.startswith('.') or entry in ignored:
-                continue
-            p = os.path.join(base_dir, entry)
-            if os.path.isdir(p):
-                try:
-                    s = os.stat(p)
-                    items.append(('__root_sub__', entry, s.st_mtime))
-                except OSError:
-                    pass
-    except OSError:
-        pass
+_lock = threading.Lock()
 
-    # 2. Check main categories directory
-    try:
-        cat_dir_stat = os.stat(cat_dir)
-        items.append(('__cat_dir__', cat_dir_stat.st_mtime))
 
-        entries = sorted(os.listdir(cat_dir))
-        for entry in entries:
-            if entry.startswith('.'):
-                continue
-            entry_path = os.path.join(cat_dir, entry)
-            if os.path.isdir(entry_path):
-                try:
-                    stat = os.stat(entry_path)
-                    items.append((entry, stat.st_mtime))
-                    files = sorted(os.listdir(entry_path))
-                    for f in files:
-                        if not f.startswith('.') and f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.avif')):
-                            f_path = os.path.join(entry_path, f)
-                            try:
-                                f_stat = os.stat(f_path)
-                                items.append((entry, f, f_stat.st_mtime, f_stat.st_size))
-                            except OSError:
-                                pass
-                except OSError:
-                    pass
-    except OSError:
-        pass
-    return tuple(items)
+def store_image(data, filename):
+    """Save uploaded bytes under images/<content-hash>.<ext> and return the repo path."""
+    ext = os.path.splitext(filename or '')[1].lower()
+    if ext == '.jpe':
+        ext = '.jpg'
+    if ext not in IMAGE_EXTS:
+        raise CatalogError(f'unsupported file type "{ext or filename}" (use {", ".join(IMAGE_EXTS)})')
+    if not data:
+        raise CatalogError('empty upload')
+    os.makedirs(IMAGES_DIR, exist_ok=True)
+    path = f'{IMAGES_DIR}/{hashlib.sha1(data).hexdigest()[:16]}{ext}'
+    if not os.path.exists(path):
+        tmp = path + '.part'
+        with open(tmp, 'wb') as f:
+            f.write(data)
+        os.replace(tmp, path)
+    return path
 
-def git_sync_push(base_dir='.'):
-    """
-    Automatically commits and pushes changes to GitHub origin main
-    so the live website updates in real time.
-    """
-    try:
-        status = subprocess.run(['git', 'status', '--porcelain'], cwd=base_dir, capture_output=True, text=True)
-        if not status.stdout.strip():
-            return False
 
-        print("🌸 [Live Sync] Detected new files! Staging changes...")
-        subprocess.run(['git', 'add', '-A'], cwd=base_dir, check=True)
+def update_catalog(new_catalog):
+    """Save a full catalog. Photos that were in the old catalog but not the new one are deleted."""
+    with _lock:
+        before = set(catalog_images(load_catalog('.')))
+        saved = save_catalog(new_catalog, '.')
+        removed = before - set(catalog_images(saved))
+        for path in removed:
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
+        return saved
 
-        msg = f"Auto-sync: update categories & products ({time.strftime('%Y-%m-%d %H:%M:%S')})"
-        subprocess.run(['git', 'commit', '-m', msg], cwd=base_dir, capture_output=True, text=True)
 
-        print("🚀 [Live Sync] Pushing to GitHub (origin main)...")
-        push_res = subprocess.run(['git', 'push', 'origin', 'main'], cwd=base_dir, capture_output=True, text=True, timeout=90)
-        if push_res.returncode == 0:
-            print("✨ [Live Sync] Successfully published to GitHub! Live website updated.")
-            return True
-        else:
-            print(f"⚠️ [Live Sync] Push output: {push_res.stderr.strip() or push_res.stdout.strip()}")
-            return False
-    except Exception as err:
-        print(f"⚠️ [Live Sync] Git push notice: {err}")
-        return False
+def run_git(*args, timeout=60):
+    return subprocess.run(['git', *args], capture_output=True, text=True, timeout=timeout)
 
-def sync_catalog(base_dir='.', force=False, verbose=True):
-    """
-    Scans the directory and rebuilds index.html if any changes are detected.
-    Thread-safe.
-    """
-    global _last_fingerprint, _last_counts
-    with _rebuild_lock:
-        current_fp = get_catalog_fingerprint(base_dir)
-        if not force and current_fp == _last_fingerprint:
-            return False, _last_counts[0], _last_counts[1]
 
-        cats, total = scan_catalog_data(base_dir)
-        output_path = os.path.join(base_dir, 'index.html')
-        generate_catalog_html(cats, total, output_path)
+def publish():
+    """Commit catalog.json, index.html and images/ and push the current branch."""
+    with _lock:
+        save_catalog(load_catalog('.'), '.')
+        add = run_git('add', '-A', '--', *PUBLISH_PATHS)
+        if add.returncode != 0:
+            return False, add.stderr.strip()
+        if run_git('diff', '--cached', '--quiet', '--', *PUBLISH_PATHS).returncode == 0:
+            pushed = run_git('push', 'origin', 'HEAD', timeout=120)
+            if pushed.returncode != 0:
+                return False, pushed.stderr.strip() or pushed.stdout.strip()
+            return True, 'Nothing new to publish. The live site is up to date.'
+        msg = f"Catalog update ({time.strftime('%Y-%m-%d %H:%M:%S')})"
+        commit = run_git('commit', '-m', msg, '--', *PUBLISH_PATHS)
+        if commit.returncode != 0:
+            return False, commit.stderr.strip() or commit.stdout.strip()
+        pushed = run_git('push', 'origin', 'HEAD', timeout=120)
+        if pushed.returncode != 0:
+            return False, 'Committed locally but the push failed: ' + (pushed.stderr.strip() or pushed.stdout.strip())
+        return True, f'Published. The live site updates in a minute or two: {LIVE_URL}'
 
-        # Also save catalog_data.json
-        try:
-            with open(os.path.join(base_dir, 'catalog_data.json'), 'w', encoding='utf-8') as f:
-                json.dump(cats, f, indent=2, ensure_ascii=False)
-        except Exception:
-            pass
 
-        _last_fingerprint = get_catalog_fingerprint(base_dir)
-        _last_counts = (len(cats), total)
-
-        if verbose:
-            print(f"🌸 [Auto-Sync] Catalog updated! {len(cats)} categories, {total} products ready.")
-
-        return True, len(cats), total
-
-def folder_watcher_thread(base_dir='.', auto_push=True):
-    """
-    Background daemon thread that continuously monitors for folder / image changes.
-    When changes occur (e.g. from Google Drive sync or Finder):
-    1. Debounces for 3 seconds to let file transfer finish
-    2. Rebuilds index.html and catalog_data.json
-    3. Pushes to GitHub so the live site updates in real time!
-    """
-    last_seen_fp = get_catalog_fingerprint(base_dir)
-    while True:
-        try:
-            time.sleep(1.5)
-            curr_fp = get_catalog_fingerprint(base_dir)
-            if curr_fp != last_seen_fp:
-                # Changes detected! Debounce to let Google Drive or file download finish
-                time.sleep(3.0)
-                # Re-check fingerprint after settling
-                settled_fp = get_catalog_fingerprint(base_dir)
-                last_seen_fp = settled_fp
-
-                updated, cats, prods = sync_catalog(base_dir, force=True, verbose=True)
-                if updated and auto_push:
-                    git_sync_push(base_dir)
-        except Exception as e:
-            time.sleep(2.0)
-
-class OopsieHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-    """
-    Custom HTTP request handler with:
-    - Auto-rebuild check on page reload (guarantees real-time accuracy)
-    - Anti-caching headers for HTML so mobile browsers show updates immediately
-    - JSON API endpoint for catalog status
-    """
+class OopsieHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
-        # Prevent mobile Safari/Chrome from aggressively caching the HTML
-        if self.path in ('/', '/index.html', '/index.htm', '/api/status'):
+        path = urllib.parse.urlparse(self.path).path
+        if path in ('/', '/index.html', '/admin.html', '/catalog.json') or path.startswith('/api/'):
             self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Expires', '0')
         super().end_headers()
 
+    def send_json(self, status, payload):
+        body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def read_body(self, limit):
+        length = int(self.headers.get('Content-Length') or 0)
+        if length > limit:
+            raise CatalogError(f'upload is too large (max {limit // (1024 * 1024)} MB)')
+        return self.rfile.read(length)
+
     def do_GET(self):
-        clean_path = urllib.parse.urlparse(self.path).path
-
-        # Serve logo for favicon
-        if clean_path == '/favicon.ico':
+        path = urllib.parse.urlparse(self.path).path
+        if path == '/favicon.ico':
             self.path = '/logo.png'
-            return super().do_GET()
-
-        # Handle API status query
-        if clean_path == '/api/status':
-            sync_catalog('.', force=False, verbose=False)
-            cats_count, prods_count = _last_counts
-            body = json.dumps({'status': 'ok', 'categories': cats_count, 'products': prods_count}).encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Content-Length', str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
-            return
-
-        # When reloading the catalog page, ensure it is up-to-date
-        if clean_path in ('/', '/index.html', '/index.htm'):
-            sync_catalog('.', force=False, verbose=True)
-
+        elif path == '/api/catalog':
+            return self.send_json(200, load_catalog('.'))
+        elif path in ('/admin', '/admin/'):
+            self.path = '/admin.html'
         return super().do_GET()
 
+    def do_PUT(self):
+        if urllib.parse.urlparse(self.path).path != '/api/catalog':
+            return self.send_json(404, {'error': 'not found'})
+        try:
+            catalog = json.loads(self.read_body(5 * 1024 * 1024) or b'null')
+            return self.send_json(200, update_catalog(catalog))
+        except (CatalogError, json.JSONDecodeError) as e:
+            return self.send_json(400, {'error': str(e)})
+
+    def do_POST(self):
+        url = urllib.parse.urlparse(self.path)
+        try:
+            if url.path == '/api/upload':
+                name = urllib.parse.parse_qs(url.query).get('name', [''])[0]
+                return self.send_json(200, {'path': store_image(self.read_body(MAX_UPLOAD_BYTES), name)})
+            if url.path == '/api/publish':
+                ok, message = publish()
+                return self.send_json(200 if ok else 500, {'ok': ok, 'message': message})
+        except CatalogError as e:
+            return self.send_json(400, {'error': str(e)})
+        return self.send_json(404, {'error': 'not found'})
+
     def log_message(self, format, *args):
-        # Suppress noisy image GET logs; only show important errors or page loads
-        if len(args) >= 1 and ('GET / ' in str(args[0]) or 'GET /index.html' in str(args[0])):
-            print(f"📱 Client loaded catalog: {args[0]}")
-        elif len(args) >= 2 and str(args[1]) not in ('200', '304'):
+        if len(args) >= 2 and str(args[1]) not in ('200', '304'):
             super().log_message(format, *args)
+
+
+class ThreadingServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
 
 def get_local_ip():
     try:
@@ -228,6 +165,7 @@ def get_local_ip():
     except Exception:
         return '127.0.0.1'
 
+
 def find_available_port(start_port=8080, max_attempts=20):
     for port in range(start_port, start_port + max_attempts):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -235,58 +173,36 @@ def find_available_port(start_port=8080, max_attempts=20):
                 return port
     return start_port
 
-def run_server():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
 
-    # Initial sync on startup
-    print("\n🌸 Initializing Oopsie Catalog...")
-    sync_catalog('.', force=True, verbose=True)
+def run_server(open_browser=True):
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    save_catalog(load_catalog('.'), '.')
 
-    # Start background folder watcher with GitHub live sync enabled
-    watcher = threading.Thread(target=folder_watcher_thread, args=('.', True), daemon=True)
-    watcher.start()
-
-    port = find_available_port(8080)
-    local_ip = get_local_ip()
-
-    socketserver.TCPServer.allow_reuse_address = True
-
+    port = int(os.environ.get('PORT') or find_available_port(8080))
     try:
-        with socketserver.TCPServer(('0.0.0.0', port), OopsieHTTPRequestHandler) as httpd:
-            desktop_url = f"http://localhost:{port}"
-            mobile_url = f"http://{local_ip}:{port}"
-            github_url = "https://miku1113.github.io/oopsie/"
-
-            print("\n" + "🌸 " + "=" * 60 + " 🌸")
-            print("        OOPSIE HANDCRAFTED STUDIO • REAL-TIME LIVE SYNC")
-            print("🌸 " + "=" * 60 + " 🌸")
-            print(f"🌍 Live Website URL:  {github_url}")
-            print(f"💻 Local Desktop URL: {desktop_url}")
-            print(f"📱 Local Wi-Fi URL:   {mobile_url}")
-            print("=" * 64)
-            print("✨ Real-Time Google Drive & GitHub Sync is ACTIVE!")
-            print("   • Adding any folder in Google Drive or Finder:")
-            print("     -> Automatically creates new category & products")
-            print("     -> Automatically pushes to GitHub & updates live site in real time!")
-            print("   • Deleting any folder:")
-            print("     -> Automatically removes it from the catalog & live site!")
-            print("=" * 64)
-            print("Press Ctrl+C to stop the server anytime.\n")
-
-            # Try opening on desktop
-            try:
-                webbrowser.open(desktop_url)
-            except Exception:
-                pass
-
+        with ThreadingServer(('0.0.0.0', port), OopsieHandler) as httpd:
+            desktop_url = f'http://localhost:{port}'
+            print('\n🌸 ' + '=' * 60 + ' 🌸')
+            print('        OOPSIE HANDCRAFTED STUDIO • CATALOG SERVER')
+            print('🌸 ' + '=' * 60 + ' 🌸')
+            print(f'🌍 Live website:   {LIVE_URL}')
+            print(f'💻 Catalog:        {desktop_url}')
+            print(f'🛠  Admin:          {desktop_url}/admin.html')
+            print(f'📱 On your Wi-Fi:  http://{get_local_ip()}:{port}')
+            print('=' * 64)
+            print('Edit categories, products and photos in the admin page.')
+            print('Press "Publish" there to push your changes to the live site.')
+            print('Press Ctrl+C to stop the server.\n')
+            if open_browser:
+                try:
+                    webbrowser.open(desktop_url + '/admin.html')
+                except Exception:
+                    pass
             httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n\n🌸 Server stopped. Have a wonderful day!\n")
+        print('\n\n🌸 Server stopped. Have a wonderful day!\n')
         sys.exit(0)
-    except Exception as e:
-        print(f"\n❌ Error starting server: {e}")
-        sys.exit(1)
+
 
 if __name__ == '__main__':
-    run_server()
+    run_server(open_browser='--no-browser' not in sys.argv)

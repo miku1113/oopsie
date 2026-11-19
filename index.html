@@ -10,122 +10,82 @@
 <link rel="icon" href="logo.png?v=2">
 <title>OOPSIE — Little things, happy feelings</title>
 <style>
-:root{--paper:#716c4a;--ink:#fff8ea;--quiet:#f2ecda;--pink:#f6a499;--sage:#abbfb6;--blue:#557dca;--line:#928d6b;--white:#716c4a;--surface:#625e40;--brand-burgundy:#662020;--focus:#ffceb7;color-scheme:dark;font-family:'Avenir Next',Avenir,'Trebuchet MS',sans-serif;color:var(--ink);background:var(--paper)}*{box-sizing:border-box}body{margin:0}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--focus);outline-offset:5px}button{ -webkit-tap-highlight-color:transparent}::selection{background:var(--pink);color:var(--brand-burgundy)}.index{max-width:1120px;margin:auto;padding:38px 64px 30px;min-height:100dvh;display:flex;flex-direction:column}.masthead{display:flex;justify-content:center;position:relative}.logo{width:auto;height:96px;max-width:240px;object-fit:contain}.small-note{position:absolute;right:0;top:32px;font-size:12px;color:var(--quiet)}.intro{text-align:center;margin:36px auto 38px;max-width:650px}.intro h1{font-family:'Palatino Linotype',Palatino,'Book Antiqua',serif;font-weight:400;letter-spacing:-1.8px;font-size:clamp(35px,4.2vw,54px);line-height:1.12;margin:0 0 16px}.intro p{font-size:14px;line-height:1.8;color:var(--quiet);margin:0}.categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 18px}.category{position:relative;border:1px solid transparent;border-bottom-color:var(--line);background:transparent;min-height:59px;padding:13px 14px;display:flex;align-items:center;text-align:left;gap:14px;border-radius:9px;transition:background .2s,border-color .2s,transform .2s}.category:hover{color:var(--brand-burgundy);background:var(--pink);border-color:var(--pink);transform:translateY(-2px)}.category .name{font-size:14px;line-height:1.4;flex:1}.count{font-size:11px;color:var(--quiet);background:var(--surface);width:25px;height:25px;border-radius:50%;display:grid;place-items:center;flex:none}.category:hover .count{background:#fff0dc;color:var(--brand-burgundy)}.end{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:11px;color:var(--quiet);margin-top:auto;padding-top:40px}.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:var(--sage)}.dots i:nth-child(2){background:var(--brand-burgundy)}.dots i:nth-child(3){background:var(--pink)}.dots i:nth-child(4){background:#f77916}.dots i:nth-child(5){background:var(--blue)}dialog{border:0;padding:0;color:var(--ink);max-width:none;max-height:none}dialog::backdrop{background:rgba(35,33,21,.55);backdrop-filter:blur(9px)}.gallery{width:min(1160px,calc(100% - 64px));height:calc(100dvh - 64px);border-radius:24px;background:var(--white);box-shadow:0 24px 90px #211e194d;overflow:hidden}.gallery[open]{display:flex;flex-direction:column;animation:arrive .3s ease-out}.gallery-head{padding:26px 36px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;flex:none}.gallery-heading{flex:1;min-width:0}.gallery-heading h2{font-family:Palatino,'Book Antiqua',serif;font-size:32px;font-weight:400;letter-spacing:-.7px;margin:0 0 5px}.gallery-heading p{font-size:12px;color:var(--quiet);margin:0}.close{border:1px solid var(--line);background:transparent;border-radius:100px;min-height:42px;padding:9px 17px;font-size:12px;white-space:nowrap}.close:hover{background:var(--surface)}.photos{overflow:auto;overscroll-behavior:contain;padding:30px 36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;gap:28px 22px}.photo{border:0;padding:0;background:none;text-align:left;min-width:0}.image-wrap{height:310px;border-radius:12px;background:var(--surface);overflow:hidden;display:flex;align-items:center;justify-content:center}.photo img{height:100%;width:100%;object-fit:contain;transition:transform .35s}.photo:hover img{transform:scale(1.025)}.caption{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;font-size:11px;color:var(--quiet)}.caption span:last-child{font-size:17px;color:var(--ink)}.viewer{background:var(--paper);width:100%;height:100dvh;overflow:hidden}.viewer[open]{display:flex;flex-direction:column}.viewer-head{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;gap:20px}.viewer-head p{font-size:13px;margin:0}.viewer-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;padding:10px 80px 30px}.viewer-stage img{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:5px}.step{position:absolute;top:50%;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);font-size:24px;display:grid;place-items:center}.previous{left:20px}.next{right:20px}.viewer-foot{text-align:center;font-size:11px;color:var(--quiet);padding:0 20px 18px}.empty{padding:30px}body.modal-open{overflow:hidden}@keyframes arrive{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}@media(min-width:1450px){.index{padding-top:55px;padding-bottom:40px}.intro{margin-top:45px;margin-bottom:45px}.category{min-height:65px}}@media(max-width:800px){.index{padding:28px 28px 24px}.small-note{display:none}.categories{gap:6px 12px;grid-template-columns:repeat(2,minmax(0,1fr))}.intro{margin:28px auto}.category{min-height:58px;padding:10px}.gallery{width:calc(100% - 24px);height:calc(100dvh - 24px);border-radius:18px}.gallery-head{padding:20px 24px}.gallery-heading h2{font-size:27px}.photos{grid-template-columns:repeat(2,minmax(0,1fr));padding:24px;gap:16px}.image-wrap{height:300px}.end{padding-top:32px}}@media(max-width:480px){.index{padding:23px 18px}.logo{width:auto;height:80px;max-width:180px}.intro{margin:25px auto 26px}.intro h1{font-size:37px;letter-spacing:-1.3px}.intro p{font-size:12px;max-width:260px;margin:auto}.categories{gap:4px 8px}.category{padding:10px 6px;gap:7px;min-height:60px}.category .name{font-size:12px}.count{width:21px;height:21px;font-size:10px}.end{font-size:10px}.gallery-head{padding:20px 18px;gap:10px;align-items:flex-start}.gallery-heading h2{font-size:26px}.gallery-head .close{font-size:11px;padding:8px 12px;min-height:38px}.photos{padding:18px;gap:16px 12px}.image-wrap{height:225px;border-radius:8px}.caption{font-size:10px}.viewer-head{padding:16px}.viewer-stage{padding:8px 10px 75px}.step{top:auto;bottom:12px}.previous{left:calc(50% - 55px)}.next{right:calc(50% - 55px)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+:root{--paper:#716c4a;--ink:#fff8ea;--quiet:#f2ecda;--pink:#f6a499;--sage:#abbfb6;--blue:#557dca;--line:#928d6b;--white:#716c4a;--surface:#625e40;--brand-burgundy:#662020;--focus:#ffceb7;color-scheme:dark;font-family:'Avenir Next',Avenir,'Trebuchet MS',sans-serif;color:var(--ink);background:var(--paper)}*{box-sizing:border-box}body{margin:0}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--focus);outline-offset:5px}button{ -webkit-tap-highlight-color:transparent}::selection{background:var(--pink);color:var(--brand-burgundy)}.index{max-width:1120px;margin:auto;padding:38px 64px 30px;min-height:100dvh;display:flex;flex-direction:column}.masthead{display:flex;justify-content:center;position:relative}.logo{width:auto;height:96px;max-width:240px;object-fit:contain}.small-note{position:absolute;right:0;top:32px;font-size:12px;color:var(--quiet)}.intro{text-align:center;margin:36px auto 38px;max-width:650px}.intro h1{font-family:'Palatino Linotype',Palatino,'Book Antiqua',serif;font-weight:400;letter-spacing:-1.8px;font-size:clamp(35px,4.2vw,54px);line-height:1.12;margin:0 0 16px}.intro p{font-size:14px;line-height:1.8;color:var(--quiet);margin:0}.categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 18px}.category{position:relative;border:1px solid transparent;border-bottom-color:var(--line);background:transparent;min-height:59px;padding:13px 14px;display:flex;align-items:center;text-align:left;gap:14px;border-radius:9px;transition:background .2s,border-color .2s,transform .2s}.category:hover{color:var(--brand-burgundy);background:var(--pink);border-color:var(--pink);transform:translateY(-2px)}.category .name{font-size:14px;line-height:1.4;flex:1}.count{font-size:11px;color:var(--quiet);background:var(--surface);width:25px;height:25px;border-radius:50%;display:grid;place-items:center;flex:none}.category:hover .count{background:#fff0dc;color:var(--brand-burgundy)}.end{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:11px;color:var(--quiet);margin-top:auto;padding-top:40px}.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:var(--sage)}.dots i:nth-child(2){background:var(--brand-burgundy)}.dots i:nth-child(3){background:var(--pink)}.dots i:nth-child(4){background:#f77916}.dots i:nth-child(5){background:var(--blue)}dialog{border:0;padding:0;color:var(--ink);max-width:none;max-height:none}dialog::backdrop{background:rgba(35,33,21,.55);backdrop-filter:blur(9px)}.gallery{width:min(1160px,calc(100% - 64px));height:calc(100dvh - 64px);border-radius:24px;background:var(--white);box-shadow:0 24px 90px #211e194d;overflow:hidden}.gallery[open]{display:flex;flex-direction:column;animation:arrive .3s ease-out}.gallery-head{padding:26px 36px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;flex:none}.gallery-heading{flex:1;min-width:0}.gallery-heading h2{font-family:Palatino,'Book Antiqua',serif;font-size:32px;font-weight:400;letter-spacing:-.7px;margin:0 0 5px}.gallery-heading p{font-size:12px;color:var(--quiet);margin:0}.close{border:1px solid var(--line);background:transparent;border-radius:100px;min-height:42px;padding:9px 17px;font-size:12px;white-space:nowrap}.close:hover{background:var(--surface)}.photos{overflow:auto;overscroll-behavior:contain;padding:30px 36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;gap:28px 22px}.photo{border:0;padding:0;background:none;text-align:left;min-width:0}.image-wrap{position:relative;height:310px;border-radius:12px;background:var(--surface);overflow:hidden;display:flex;align-items:center;justify-content:center}.photo img{height:100%;width:100%;object-fit:contain;transition:transform .35s}.photo:hover img{transform:scale(1.025)}.stack{position:absolute;right:10px;bottom:10px;font-size:11px;background:rgba(35,33,21,.7);color:var(--ink);border-radius:100px;padding:4px 10px}.caption{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 2px;font-size:11px;color:var(--quiet)}.caption .title{font-size:13px;color:var(--ink)}.caption span:last-child{font-size:17px;color:var(--ink)}.viewer{background:var(--paper);width:100%;height:100dvh;overflow:hidden}.viewer[open]{display:flex;flex-direction:column}.viewer-head{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;gap:20px}.viewer-head p{font-size:13px;margin:0}.viewer-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;padding:10px 80px 30px}.viewer-stage img{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:5px}.step{position:absolute;top:50%;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);font-size:24px;display:grid;place-items:center}.step[hidden]{display:none}.previous{left:20px}.next{right:20px}.viewer-foot{text-align:center;font-size:11px;color:var(--quiet);padding:0 20px 18px}.empty{padding:30px}body.modal-open{overflow:hidden}@keyframes arrive{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}@media(min-width:1450px){.index{padding-top:55px;padding-bottom:40px}.intro{margin-top:45px;margin-bottom:45px}.category{min-height:65px}}@media(max-width:800px){.index{padding:28px 28px 24px}.small-note{display:none}.categories{gap:6px 12px;grid-template-columns:repeat(2,minmax(0,1fr))}.intro{margin:28px auto}.category{min-height:58px;padding:10px}.gallery{width:calc(100% - 24px);height:calc(100dvh - 24px);border-radius:18px}.gallery-head{padding:20px 24px}.gallery-heading h2{font-size:27px}.photos{grid-template-columns:repeat(2,minmax(0,1fr));padding:24px;gap:16px}.image-wrap{height:300px}.end{padding-top:32px}}@media(max-width:480px){.index{padding:23px 18px}.logo{width:auto;height:80px;max-width:180px}.intro{margin:25px auto 26px}.intro h1{font-size:37px;letter-spacing:-1.3px}.intro p{font-size:12px;max-width:260px;margin:auto}.categories{gap:4px 8px}.category{padding:10px 6px;gap:7px;min-height:60px}.category .name{font-size:12px}.count{width:21px;height:21px;font-size:10px}.end{font-size:10px}.gallery-head{padding:20px 18px;gap:10px;align-items:flex-start}.gallery-heading h2{font-size:26px}.gallery-head .close{font-size:11px;padding:8px 12px;min-height:38px}.photos{padding:18px;gap:16px 12px}.image-wrap{height:225px;border-radius:8px}.caption{font-size:10px}.caption .title{font-size:11px}.viewer-head{padding:16px}.viewer-stage{padding:8px 10px 75px}.step{top:auto;bottom:12px}.previous{left:calc(50% - 55px)}.next{right:calc(50% - 55px)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-/* ========================================================
-   5-DOT WAVE PRELOADER (Delightful Ocean-Wave Animation)
-   ======================================================== */
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  background: var(--paper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
-}
-.preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.wave-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-.wave-dots i {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  display: block;
-  animation: dotWave 1.35s ease-in-out infinite;
-}
-.wave-dots i:nth-child(1) { background: var(--sage); animation-delay: 0.0s; }
-.wave-dots i:nth-child(2) { background: var(--brand-burgundy); animation-delay: 0.15s; }
-.wave-dots i:nth-child(3) { background: var(--pink); animation-delay: 0.3s; }
-.wave-dots i:nth-child(4) { background: #f77916; animation-delay: 0.45s; }
-.wave-dots i:nth-child(5) { background: var(--blue); animation-delay: 0.6s; }
-
-@keyframes dotWave {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.55;
-  }
-  32% {
-    transform: translateY(-16px);
-    opacity: 1;
-  }
-}
+/* 5-dot wave preloader */
+.preloader{position:fixed;inset:0;z-index:999999;background:var(--paper);display:flex;align-items:center;justify-content:center;opacity:1;visibility:visible;transition:opacity .4s cubic-bezier(.4,0,.2,1),visibility .4s ease}
+.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.wave-dots{display:flex;align-items:center;justify-content:center;gap:14px}
+.wave-dots i{width:15px;height:15px;border-radius:50%;display:block;animation:dotWave 1.35s ease-in-out infinite}
+.wave-dots i:nth-child(1){background:var(--sage);animation-delay:0s}
+.wave-dots i:nth-child(2){background:var(--brand-burgundy);animation-delay:.15s}
+.wave-dots i:nth-child(3){background:var(--pink);animation-delay:.3s}
+.wave-dots i:nth-child(4){background:#f77916;animation-delay:.45s}
+.wave-dots i:nth-child(5){background:var(--blue);animation-delay:.6s}
+@keyframes dotWave{0%,100%{transform:translateY(0);opacity:.55}32%{transform:translateY(-16px);opacity:1}}
 </style>
 </head>
 <body>
-<!-- 5-Dot Wave Preloader -->
 <div id="preloader" class="preloader" aria-label="Loading Oopsie...">
-  <div class="wave-dots" aria-hidden="true">
-    <i></i><i></i><i></i><i></i><i></i>
-  </div>
+  <div class="wave-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 </div>
 
 <main class="index">
 <header class="masthead"><img class="logo" src="logo.png?v=2" alt="OOPSIE"><span class="small-note">The collection</span></header>
 <div class="intro"><h1>Little things.<br>Happy feelings.</h1><p>A world of colour, charm and everyday joy.<br>Pick a category. Find something that makes you smile.</p></div>
-<nav class="categories" aria-label="Product categories" id="categories"><button class="category" aria-haspopup="dialog" onclick="openGallery(0, this)"><span class="name">Postcard</span><span class="count" aria-label="3 photos">3</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(1, this)"><span class="name">Stickers</span><span class="count" aria-label="4 photos">4</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(2, this)"><span class="name">Bookmarks</span><span class="count" aria-label="4 photos">4</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(3, this)"><span class="name">Jewellery</span><span class="count" aria-label="8 photos">8</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(4, this)"><span class="name">Greeting card</span><span class="count" aria-label="5 photos">5</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(5, this)"><span class="name">Fridge magnets</span><span class="count" aria-label="4 photos">4</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(6, this)"><span class="name">Small frames</span><span class="count" aria-label="10 photos">10</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(7, this)"><span class="name">Ceramic Pieces</span><span class="count" aria-label="6 photos">6</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(8, this)"><span class="name">Fabric charms</span><span class="count" aria-label="7 photos">7</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(9, this)"><span class="name">Bag charms</span><span class="count" aria-label="13 photos">13</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(10, this)"><span class="name">Beaded charms</span><span class="count" aria-label="13 photos">13</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(11, this)"><span class="name">Beaded flowers</span><span class="count" aria-label="20 photos">20</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(12, this)"><span class="name">Crochet charms</span><span class="count" aria-label="3 photos">3</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(13, this)"><span class="name">Crochet keychains</span><span class="count" aria-label="5 photos">5</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(14, this)"><span class="name">Beaded Plants</span><span class="count" aria-label="2 photos">2</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(15, this)"><span class="name">Cross stitch card</span><span class="count" aria-label="3 photos">3</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(16, this)"><span class="name">Sticker cards</span><span class="count" aria-label="2 photos">2</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(17, this)"><span class="name">Specs holder</span><span class="count" aria-label="2 photos">2</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(18, this)"><span class="name">Plant charms</span><span class="count" aria-label="3 photos">3</span></button>
-<button class="category" aria-haspopup="dialog" onclick="openGallery(19, this)"><span class="name">Book & Tablet Sleeves & Cute Small Pouches & Wallets</span><span class="count" aria-label="13 photos">13</span></button></nav>
+<nav class="categories" aria-label="Product categories" id="categories"><button class="category" aria-haspopup="dialog" onclick="openGallery(0, this)"><span class="name">Postcard</span><span class="count" aria-label="3 items">3</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(1, this)"><span class="name">Stickers</span><span class="count" aria-label="4 items">4</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(2, this)"><span class="name">Bookmarks</span><span class="count" aria-label="4 items">4</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(3, this)"><span class="name">Jewellery</span><span class="count" aria-label="8 items">8</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(4, this)"><span class="name">Greeting card</span><span class="count" aria-label="5 items">5</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(5, this)"><span class="name">Fridge magnets</span><span class="count" aria-label="4 items">4</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(6, this)"><span class="name">Small frames</span><span class="count" aria-label="10 items">10</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(7, this)"><span class="name">Ceramic Pieces</span><span class="count" aria-label="6 items">6</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(8, this)"><span class="name">Fabric charms</span><span class="count" aria-label="7 items">7</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(9, this)"><span class="name">Bag charms</span><span class="count" aria-label="13 items">13</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(10, this)"><span class="name">Beaded charms</span><span class="count" aria-label="13 items">13</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(11, this)"><span class="name">Beaded flowers</span><span class="count" aria-label="20 items">20</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(12, this)"><span class="name">Crochet charms</span><span class="count" aria-label="3 items">3</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(13, this)"><span class="name">Crochet keychains</span><span class="count" aria-label="5 items">5</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(14, this)"><span class="name">Beaded Plants</span><span class="count" aria-label="2 items">2</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(15, this)"><span class="name">Cross stitch card</span><span class="count" aria-label="3 items">3</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(16, this)"><span class="name">Sticker cards</span><span class="count" aria-label="2 items">2</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(17, this)"><span class="name">Specs holder</span><span class="count" aria-label="2 items">2</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(18, this)"><span class="name">Plant charms</span><span class="count" aria-label="3 items">3</span></button>
+<button class="category" aria-haspopup="dialog" onclick="openGallery(19, this)"><span class="name">Book &amp; Tablet Sleeves &amp; Cute Small Pouches &amp; Wallets</span><span class="count" aria-label="13 items">13</span></button></nav>
 <footer class="end"><span>20 categories to fall in love with.</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>A little world of OOPSIE.</span></footer>
 </main>
 <dialog class="gallery" id="gallery" aria-labelledby="gallery-title"><header class="gallery-head"><div class="gallery-heading"><h2 id="gallery-title"></h2><p id="gallery-meta"></p></div><button class="close" id="close-gallery" autofocus>All categories <span aria-hidden="true">×</span></button></header><div class="photos" id="photos"></div></dialog>
 <dialog class="viewer" id="viewer" aria-label="Full-size photo viewer"><header class="viewer-head"><p id="viewer-label" aria-live="polite"></p><button class="close" id="close-viewer" autofocus>Back to gallery ×</button></header><div class="viewer-stage"><img id="full-image" alt=""><button class="step previous" id="previous" aria-label="Previous photo">‹</button><button class="step next" id="next" aria-label="Next photo">›</button></div><div class="viewer-foot">Use the arrow keys to browse. Press Esc to go back.</div></dialog>
 <script>
-let collection = [{"name": "Postcard", "folder": "Postcard", "images": ["oppsie%20categories/Postcard/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%281%29.jpeg", "oppsie%20categories/Postcard/WhatsApp%20Image%202026-10-28%20at%2004.24.32%20%282%29.jpeg", "oppsie%20categories/Postcard/WhatsApp%20Image%202026-10-28%20at%2004.24.32.jpeg"]}, {"name": "Stickers", "folder": "Stickers", "images": ["oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02%20%281%29.jpeg", "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.02.jpeg", "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03%20%281%29.jpeg", "oppsie%20categories/Stickers/WhatsApp%20Image%202026-10-28%20at%2004.28.03.jpeg"]}, {"name": "Bookmarks", "folder": "Bookmarks", "images": ["oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.32.jpeg", "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%281%29.jpeg", "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33%20%282%29.jpeg", "oppsie%20categories/Bookmarks/WhatsApp%20Image%202026-10-28%20at%2004.30.33.jpeg"]}, {"name": "Jewellery", "folder": "Jewellery", "images": ["oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51%20%281%29.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.51.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%281%29.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52%20%282%29.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.52.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%281%29.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53%20%282%29.jpeg", "oppsie%20categories/Jewellery/WhatsApp%20Image%202026-10-28%20at%2004.37.53.jpeg"]}, {"name": "Greeting card", "folder": "Greeting card", "images": ["oppsie%20categories/Greeting%20card/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%281%29.jpeg", "oppsie%20categories/Greeting%20card/WhatsApp%20Image%202026-10-28%20at%2004.40.36%20%282%29.jpeg", "oppsie%20categories/Greeting%20card/WhatsApp%20Image%202026-10-28%20at%2004.40.36.jpeg", "oppsie%20categories/Greeting%20card/WhatsApp%20Image%202026-10-28%20at%2004.40.37%20%281%29.jpeg", "oppsie%20categories/Greeting%20card/WhatsApp%20Image%202026-10-28%20at%2004.40.37.jpeg"]}, {"name": "Fridge magnets", "folder": "Fridge magnets", "images": ["oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%281%29.jpeg", "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%282%29.jpeg", "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44%20%283%29.jpeg", "oppsie%20categories/Fridge%20magnets/WhatsApp%20Image%202026-10-28%20at%2004.43.44.jpeg"]}, {"name": "Small frames", "folder": "Small frames", "images": ["oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%281%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25%20%282%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.25.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%281%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%282%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26%20%283%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.26.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%281%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27%20%282%29.jpeg", "oppsie%20categories/Small%20frames/WhatsApp%20Image%202026-10-28%20at%2004.57.27.jpeg"]}, {"name": "Ceramic Pieces", "folder": "Ceramic Pieces", "images": ["oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%281%29.jpeg", "oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12%20%282%29.jpeg", "oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.12.jpeg", "oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%281%29.jpeg", "oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13%20%282%29.jpeg", "oppsie%20categories/Ceramic%20Pieces/WhatsApp%20Image%202026-10-28%20at%2005.01.13.jpeg"]}, {"name": "Fabric charms", "folder": "Fabric charms", "images": ["oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.03.56%20%281%29.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.03.56.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.08.30%20%281%29.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.08.30.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.08.31%20%281%29.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.08.31.jpeg", "oppsie%20categories/Fabric%20charms/WhatsApp%20Image%202026-10-28%20at%2004.21.08.jpeg"]}, {"name": "Bag charms", "folder": "Bag charms", "images": ["oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%281%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21%20%282%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.21.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%281%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22%20%282%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.22.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.23.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%281%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%282%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24%20%283%29.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.24.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.44.25.jpeg", "oppsie%20categories/Bag%20charms/WhatsApp%20Image%202026-10-29%20at%2003.46.40.jpeg"]}, {"name": "Beaded charms", "folder": "Beaded charms", "images": ["oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%281%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%282%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49%20%283%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.49.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%281%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%282%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50%20%283%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.50.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%281%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51%20%282%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.51.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52%20%281%29.jpeg", "oppsie%20categories/Beaded%20charms/WhatsApp%20Image%202026-10-28%20at%2004.49.52.jpeg"]}, {"name": "Beaded flowers", "folder": "Beaded flowers", "images": ["oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-28%20at%2005.07.06%20%281%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-28%20at%2005.07.06.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.33%20%281%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.33%20%282%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.33.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34%20%281%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34%20%282%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34%20%283%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34%20%284%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34%20%285%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.34.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%281%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%282%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%283%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%284%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%285%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%286%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%287%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35%20%288%29.jpeg", "oppsie%20categories/Beaded%20flowers/WhatsApp%20Image%202026-10-30%20at%2002.36.35.jpeg"]}, {"name": "Crochet charms", "folder": "Crochet charms", "images": ["oppsie%20categories/Crochet%20charms/WhatsApp%20Image%202026-10-28%20at%2005.16.16%20%281%29.jpeg", "oppsie%20categories/Crochet%20charms/WhatsApp%20Image%202026-10-28%20at%2005.16.16%20%282%29.jpeg", "oppsie%20categories/Crochet%20charms/WhatsApp%20Image%202026-10-28%20at%2005.16.16.jpeg"]}, {"name": "Crochet keychains", "folder": "Crochet keychains", "images": ["oppsie%20categories/Crochet%20keychains/WhatsApp%20Image%202026-10-28%20at%2005.16.17%20%281%29.jpeg", "oppsie%20categories/Crochet%20keychains/WhatsApp%20Image%202026-10-28%20at%2005.16.17%20%282%29.jpeg", "oppsie%20categories/Crochet%20keychains/WhatsApp%20Image%202026-10-28%20at%2005.16.17.jpeg", "oppsie%20categories/Crochet%20keychains/WhatsApp%20Image%202026-10-28%20at%2005.16.18%20%281%29.jpeg", "oppsie%20categories/Crochet%20keychains/WhatsApp%20Image%202026-10-28%20at%2005.16.18.jpeg"]}, {"name": "Beaded Plants", "folder": "Beaded Plants", "images": ["oppsie%20categories/Beaded%20Plants/WhatsApp%20Image%202026-10-28%20at%2005.09.24%20%281%29.jpeg", "oppsie%20categories/Beaded%20Plants/WhatsApp%20Image%202026-10-28%20at%2005.09.24.jpeg"]}, {"name": "Cross stitch card", "folder": "Cross stitch card", "images": ["oppsie%20categories/Cross%20stitch%20card/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%281%29.jpeg", "oppsie%20categories/Cross%20stitch%20card/WhatsApp%20Image%202026-10-28%20at%2005.30.38%20%282%29.jpeg", "oppsie%20categories/Cross%20stitch%20card/WhatsApp%20Image%202026-10-28%20at%2005.30.38.jpeg"]}, {"name": "Sticker cards", "folder": "Sticker cards", "images": ["oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.34.jpeg", "oppsie%20categories/Sticker%20cards/WhatsApp%20Image%202026-10-28%20at%2005.33.35.jpeg"]}, {"name": "Specs holder", "folder": "Specs holder", "images": ["oppsie%20categories/Specs%20holder/WhatsApp%20Image%202026-10-28%20at%2005.35.26%20%281%29.jpeg", "oppsie%20categories/Specs%20holder/WhatsApp%20Image%202026-10-28%20at%2005.35.26.jpeg"]}, {"name": "Plant charms", "folder": "Plant charms", "images": ["oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%281%29.jpeg", "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42%20%282%29.jpeg", "oppsie%20categories/Plant%20charms/WhatsApp%20Image%202026-10-28%20at%2005.37.42.jpeg"]}, {"name": "Book & Tablet Sleeves & Cute Small Pouches & Wallets", "folder": "Book & Tablet sleeves & Cute small pouches & wallets", "images": ["oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.06%20%281%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.06%20%282%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.06.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.07%20%281%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.07%20%282%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.07.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.08%20%281%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.08%20%282%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.52.08.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.58.21%20%281%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.58.21%20%282%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.58.21%20%283%29.jpeg", "oppsie%20categories/Book%20%26%20Tablet%20sleeves%20%26%20Cute%20small%20pouches%20%26%20wallets/WhatsApp%20Image%202026-10-30%20at%2001.58.21.jpeg"]}];
+let collection = ({"version": 1, "categories": [{"id": "postcard", "name": "Postcard", "products": [], "images": ["images/2edd94481c1a670e.jpeg", "images/7a56426c8ad41c0c.jpeg", "images/e3bacb529327ea1b.jpeg"]}, {"id": "stickers", "name": "Stickers", "products": [], "images": ["images/6cc2e0b0dd8dad73.jpeg", "images/270d4e49fde1b409.jpeg", "images/e84d511ec8e73253.jpeg", "images/3024b9fefe951d5d.jpeg"]}, {"id": "bookmarks", "name": "Bookmarks", "products": [], "images": ["images/592116472782d645.jpeg", "images/185fb9aeae5b36e9.jpeg", "images/d9378f888761e5fc.jpeg", "images/3af8200bfbf5154f.jpeg"]}, {"id": "jewellery", "name": "Jewellery", "products": [], "images": ["images/70abbb22c71277a3.jpeg", "images/80f31c4d9dd1f611.jpeg", "images/00027b87b4977344.jpeg", "images/4cfbe665c108d60c.jpeg", "images/698c89dee055f7e0.jpeg", "images/ff64bd8ce61d11d5.jpeg", "images/19e66304276d4066.jpeg", "images/f568fc091782d34e.jpeg"]}, {"id": "greeting-card", "name": "Greeting card", "products": [], "images": ["images/e3fecbc1b56e4f22.jpeg", "images/f2b1d5226600b8cf.jpeg", "images/7cc2b1d5d236e769.jpeg", "images/0559547f1df35a77.jpeg", "images/9f8dea03a5062385.jpeg"]}, {"id": "fridge-magnets", "name": "Fridge magnets", "products": [], "images": ["images/4c0316d075ec4747.jpeg", "images/d129dfb123f0158a.jpeg", "images/b66d983b4484a2ce.jpeg", "images/db4e20707457143f.jpeg"]}, {"id": "small-frames", "name": "Small frames", "products": [], "images": ["images/d8ca83180512e4bc.jpeg", "images/23149c811cd65a78.jpeg", "images/12dbe1b4981447ae.jpeg", "images/b7cea0069db57b9d.jpeg", "images/1cebafa938fa2e4c.jpeg", "images/36c76695a693955d.jpeg", "images/f60e0eb577d82aaf.jpeg", "images/2d7df0ce278967c0.jpeg", "images/2c0296c53a4fb641.jpeg", "images/19c14b8970c245b7.jpeg"]}, {"id": "ceramic-pieces", "name": "Ceramic Pieces", "products": [], "images": ["images/b0aae5ff81656e73.jpeg", "images/6bb652e35fb1acbf.jpeg", "images/ed89a072bcf71a46.jpeg", "images/65c391a879539996.jpeg", "images/5bed5b681eca3f34.jpeg", "images/bfc1dc88fde7941b.jpeg"]}, {"id": "fabric-charms", "name": "Fabric charms", "products": [], "images": ["images/1ffb4cd8dddb9e67.jpeg", "images/92ed493a109f1f99.jpeg", "images/387831f6159cf9cc.jpeg", "images/3a526f13a1063d0e.jpeg", "images/6e49bfee3e4bdcff.jpeg", "images/6b2ba8f3b26efc3a.jpeg", "images/92a6cc696617ac05.jpeg"]}, {"id": "bag-charms", "name": "Bag charms", "products": [], "images": ["images/cf5ad6a45879b6cd.jpeg", "images/e3ee35f5a7abfed7.jpeg", "images/1b934a5fd94708d2.jpeg", "images/2b9719222a97dd1e.jpeg", "images/7e604deef9d36805.jpeg", "images/6bcf2781fb3e6797.jpeg", "images/c6f465c60547d2a6.jpeg", "images/1ce7e601ff82b0eb.jpeg", "images/ffe0b8cc9f66401a.jpeg", "images/2b2bcd2a077abebd.jpeg", "images/ee2b9869e6ba0f80.jpeg", "images/e1bf6f5d8a908a76.jpeg", "images/30115b0da1441f79.jpeg"]}, {"id": "beaded-charms", "name": "Beaded charms", "products": [], "images": ["images/ad2e602135dcaf4e.jpeg", "images/86da14ceacea9245.jpeg", "images/75e96ead29341b3f.jpeg", "images/e71d9aac5c20df9d.jpeg", "images/a3bb71a7cac375cc.jpeg", "images/18cbb807f9561728.jpeg", "images/1a922209216057a8.jpeg", "images/517b8fde350ba8f9.jpeg", "images/24f269426eff033b.jpeg", "images/1ae365d2ce7faa1d.jpeg", "images/ec8271293b14311f.jpeg", "images/a5f23d62eeef309b.jpeg", "images/4cef9b4a041aa23c.jpeg"]}, {"id": "beaded-flowers", "name": "Beaded flowers", "products": [], "images": ["images/c60867135e516992.jpeg", "images/7b1d71ef617d2aa4.jpeg", "images/bffb3cd3a28e4eee.jpeg", "images/f0de5c7cf4815983.jpeg", "images/1761c482007f83d4.jpeg", "images/338cc75112129960.jpeg", "images/050dd25e8807c18b.jpeg", "images/33ad63c3d1f478ff.jpeg", "images/65ceadf8a5f0f2b7.jpeg", "images/61da5166b6e105b6.jpeg", "images/f0dda537a27d61b4.jpeg", "images/b63050073b61c97b.jpeg", "images/3d4e7a60f6a76efc.jpeg", "images/f8ae2bcaf2afae9e.jpeg", "images/52edb91f875cbeb1.jpeg", "images/b0842de8cb4bba54.jpeg", "images/94f9552e48527ccd.jpeg", "images/00701758ee7d2a6a.jpeg", "images/5b5d047550469754.jpeg", "images/4ceb33efba41fa0f.jpeg"]}, {"id": "crochet-charms", "name": "Crochet charms", "products": [], "images": ["images/59f5d349c90625e9.jpeg", "images/651c507adea5c37d.jpeg", "images/8ba5d11a93a4071e.jpeg"]}, {"id": "crochet-keychains", "name": "Crochet keychains", "products": [], "images": ["images/82ca7de58ea0684d.jpeg", "images/de892516fb9c6d7b.jpeg", "images/6b756118ca30f06e.jpeg", "images/55104908c1890fb3.jpeg", "images/644207c28c3970f6.jpeg"]}, {"id": "beaded-plants", "name": "Beaded Plants", "products": [], "images": ["images/159c7cd3d562c20d.jpeg", "images/c356cda4bdc5d73d.jpeg"]}, {"id": "cross-stitch-card", "name": "Cross stitch card", "products": [], "images": ["images/806d6b965c53ae1c.jpeg", "images/715d760d2c0bce9f.jpeg", "images/f06d9bac0b1eb75f.jpeg"]}, {"id": "sticker-cards", "name": "Sticker cards", "products": [], "images": ["images/9d269c962f9eb093.jpeg", "images/63246694ba4be4d8.jpeg"]}, {"id": "specs-holder", "name": "Specs holder", "products": [], "images": ["images/05da7865245ce2e3.jpeg", "images/6e6f669011862367.jpeg"]}, {"id": "plant-charms", "name": "Plant charms", "products": [], "images": ["images/8dfc03b444ece713.jpeg", "images/1a39ddd90d4c77dc.jpeg", "images/df59c490c5ac7b0a.jpeg"]}, {"id": "book-tablet-sleeves-cute-small-pouches-wallets", "name": "Book & Tablet Sleeves & Cute Small Pouches & Wallets", "products": [], "images": ["images/786218e828fe3599.jpeg", "images/c9c496bae21eed26.jpeg", "images/c3a5f17f83b4f034.jpeg", "images/0e0c51a31e126706.jpeg", "images/a80e8dc243d74e4a.jpeg", "images/2099c53dba0d516c.jpeg", "images/a6964659cc22a0df.jpeg", "images/ea1e57d5ec54542f.jpeg", "images/01b8c6b8621d2a04.jpeg", "images/44fa962e78ce3b4f.jpeg", "images/5c4bcec088b41676.jpeg", "images/4f048e3bdf643e16.jpeg", "images/1aa6cbef8ae51eb3.jpeg"]}]}).categories;
 const $ = id => document.getElementById(id);
 const gallery = $('gallery'), viewer = $('viewer'), preloader = $('preloader');
-let active = 0, currentPhoto = 0, lastCategory = null, lastPhoto = null;
+let active = 0, lastCategory = null, lastPhoto = null;
+// The photo set the viewer is browsing: {title, images, index}
+let viewing = { title: '', images: [], index: 0 };
 
-// Smoothly dismiss preloader
 function dismissPreloader() {
   if (!preloader || preloader.classList.contains('hidden')) return;
   preloader.classList.add('hidden');
-  setTimeout(() => {
-    preloader.style.display = 'none';
-  }, 500);
+  setTimeout(() => { preloader.style.display = 'none'; }, 500);
 }
-
 const loadStartTime = Date.now();
 function finishLoading() {
-  const elapsed = Date.now() - loadStartTime;
-  const delay = Math.max(0, 650 - elapsed);
-  setTimeout(dismissPreloader, delay);
+  setTimeout(dismissPreloader, Math.max(0, 650 - (Date.now() - loadStartTime)));
 }
 
-// Render Categories List in the DOM dynamically
+function visibleCategories(categories) {
+  return categories.filter(c => c.images.length || c.products.some(p => p.images.length));
+}
+function itemCount(c) {
+  return c.products.filter(p => p.images.length).length + c.images.length;
+}
+
 function renderCategoriesList(items) {
   const container = $('categories');
   if (!container) return;
-  container.innerHTML = '';
-
+  container.replaceChildren();
   items.forEach((category, index) => {
     const button = document.createElement('button');
     button.className = 'category';
@@ -135,111 +95,112 @@ function renderCategoriesList(items) {
     name.textContent = category.name;
     const count = document.createElement('span');
     count.className = 'count';
-    count.textContent = category.images.length;
-    count.setAttribute('aria-label', category.images.length + ' photos');
+    count.textContent = itemCount(category);
+    count.setAttribute('aria-label', itemCount(category) + ' items');
     button.append(name, count);
     button.addEventListener('click', () => openGallery(index, button));
     container.append(button);
   });
-
   const countSpan = document.querySelector('.end span:first-child');
-  if (countSpan) {
-    countSpan.textContent = items.length + ' categories to fall in love with.';
-  }
+  if (countSpan) countSpan.textContent = items.length + ' categories to fall in love with.';
 }
 
-// Real-Time Dynamic Fetch (Bypasses Browser Cache)
+// Pick up catalog changes published while the page is open.
 function fetchLatestCatalog(isInitial = false) {
-  const cacheBuster = 't=' + Date.now();
-  fetch('catalog_data.json?' + cacheBuster, { cache: 'no-store' })
-    .then(res => {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    })
-    .then(latestCollection => {
-      const oldSig = JSON.stringify(collection.map(c => [c.name, c.images.length]));
-      const newSig = JSON.stringify(latestCollection.map(c => [c.name, c.images.length]));
-
-      if (oldSig !== newSig) {
-        console.log('🌸 [Live Sync] Categories updated in real time!');
-        collection = latestCollection;
+  fetch('catalog.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(data => {
+      const latest = visibleCategories(data.categories || []);
+      if (JSON.stringify(latest) !== JSON.stringify(collection)) {
+        collection = latest;
         renderCategoriesList(collection);
       }
     })
     .catch(() => {})
-    .finally(() => {
-      if (isInitial) {
-        finishLoading();
-      }
-    });
+    .finally(() => { if (isInitial) finishLoading(); });
 }
-
-// Initial load check
 fetchLatestCatalog(true);
-
-// Background poll every 4s (ensures real-time auto updates on GitHub Pages and local)
-setInterval(() => {
-  fetchLatestCatalog(false);
-}, 4000);
-
-window.addEventListener('load', () => {
-  finishLoading();
-});
+setInterval(() => fetchLatestCatalog(false), 4000);
+window.addEventListener('load', finishLoading);
 setTimeout(dismissPreloader, 3500);
+
+function tile(src, alt, title, meta, isProduct, eager, onOpen) {
+  const button = document.createElement('button');
+  button.className = 'photo';
+  button.setAttribute('aria-label', 'View ' + alt);
+  const wrap = document.createElement('span');
+  wrap.className = 'image-wrap';
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = alt;
+  img.loading = eager ? 'eager' : 'lazy';
+  img.decoding = 'async';
+  wrap.append(img);
+  if (meta) {
+    const stack = document.createElement('span');
+    stack.className = 'stack';
+    stack.textContent = meta;
+    wrap.append(stack);
+  }
+  const caption = document.createElement('span');
+  caption.className = 'caption';
+  const label = document.createElement('span');
+  label.textContent = title;
+  if (isProduct) label.className = 'title';
+  const icon = document.createElement('span');
+  icon.textContent = '＋';
+  icon.setAttribute('aria-hidden', 'true');
+  caption.append(label, icon);
+  button.append(wrap, caption);
+  button.addEventListener('click', () => { lastPhoto = button; onOpen(); });
+  return button;
+}
 
 function openGallery(index, trigger) {
   active = index;
   lastCategory = trigger;
   const c = collection[index];
   if (!c) return;
+  const products = c.products.filter(p => p.images.length);
   $('gallery-title').textContent = c.name;
-  $('gallery-meta').textContent = c.images.length + ' photos · Select a photo for a closer look';
-  $('photos').replaceChildren();
+  const parts = [];
+  if (products.length) parts.push(products.length + (products.length === 1 ? ' product' : ' products'));
+  if (c.images.length) parts.push(c.images.length + (c.images.length === 1 ? ' photo' : ' photos'));
+  $('gallery-meta').textContent = parts.join(' · ') + ' · Select one for a closer look';
+  const photos = $('photos');
+  photos.replaceChildren();
+  let n = 0;
+  products.forEach(p => {
+    const meta = p.images.length > 1 ? p.images.length + ' photos' : '';
+    photos.append(tile(p.images[0], p.name, p.name, meta, true, n++ < 6, () => openViewer(p.name, p.images, 0)));
+  });
   c.images.forEach((src, i) => {
-    const button = document.createElement('button');
-    button.className = 'photo';
-    button.setAttribute('aria-label', 'View ' + c.name + ' photo ' + (i + 1));
-    const wrap = document.createElement('span');
-    wrap.className = 'image-wrap';
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = c.name + ' — photo ' + (i + 1);
-    img.loading = i < 6 ? 'eager' : 'lazy';
-    img.decoding = 'async';
-    wrap.append(img);
-    const caption = document.createElement('span');
-    caption.className = 'caption';
-    const label = document.createElement('span');
-    label.textContent = 'Photo ' + String(i + 1).padStart(2, '0');
-    const icon = document.createElement('span');
-    icon.textContent = '＋';
-    icon.setAttribute('aria-hidden', 'true');
-    caption.append(label, icon);
-    button.append(wrap, caption);
-    button.addEventListener('click', () => {
-      lastPhoto = button;
-      currentPhoto = i;
-      updateViewer();
-      viewer.showModal();
-    });
-    $('photos').append(button);
+    photos.append(tile(src, c.name + ' — photo ' + (i + 1), 'Photo ' + String(i + 1).padStart(2, '0'), '', false, n++ < 6,
+      () => openViewer(c.name, c.images, i)));
   });
   gallery.showModal();
   document.body.classList.add('modal-open');
-  $('photos').scrollTop = 0;
+  photos.scrollTop = 0;
+}
+
+function openViewer(title, images, index) {
+  viewing = { title, images, index };
+  updateViewer();
+  viewer.showModal();
 }
 
 function updateViewer() {
-  const c = collection[active];
-  if (!c) return;
-  $('full-image').src = c.images[currentPhoto];
-  $('full-image').alt = c.name + ' — photo ' + (currentPhoto + 1);
-  $('viewer-label').textContent = c.name + ' · ' + (currentPhoto + 1) + ' / ' + c.images.length;
+  const { title, images, index } = viewing;
+  $('full-image').src = images[index];
+  $('full-image').alt = title + ' — photo ' + (index + 1);
+  $('viewer-label').textContent = title + ' · ' + (index + 1) + ' / ' + images.length;
+  $('previous').hidden = $('next').hidden = images.length < 2;
 }
 
 function step(delta) {
-  if (!collection[active] || !collection[active].images.length) return;
-  currentPhoto = (currentPhoto + delta + collection[active].images.length) % collection[active].images.length;
+  const len = viewing.images.length;
+  if (len < 2) return;
+  viewing.index = (viewing.index + delta + len) % len;
   updateViewer();
 }
 
@@ -253,15 +214,12 @@ viewer.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
 });
 
-// Mobile swipe support for viewer
-let touchStartX = 0, touchEndX = 0;
-viewer.addEventListener('touchstart', e => {
-  touchStartX = e.changedTouches[0].screenX;
-}, { passive: true });
+let touchStartX = 0;
+viewer.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
 viewer.addEventListener('touchend', e => {
-  touchEndX = e.changedTouches[0].screenX;
-  if (touchEndX < touchStartX - 50) { step(1); }
-  if (touchEndX > touchStartX + 50) { step(-1); }
+  const touchEndX = e.changedTouches[0].screenX;
+  if (touchEndX < touchStartX - 50) step(1);
+  if (touchEndX > touchStartX + 50) step(-1);
 }, { passive: true });
 
 gallery.addEventListener('click', e => {
@@ -270,12 +228,10 @@ gallery.addEventListener('click', e => {
     if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) gallery.close();
   }
 });
-
 gallery.addEventListener('close', () => {
   document.body.classList.remove('modal-open');
   lastCategory?.focus({ preventScroll: true });
 });
-
 viewer.addEventListener('close', () => lastPhoto?.focus({ preventScroll: true }));
 </script>
 </body>

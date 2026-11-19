@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#716c4a">
+<meta name="robots" content="noindex">
+<link rel="icon" href="logo.png?v=2">
+<title>OOPSIE Catalog Admin</title>
+<style>
+:root{--paper:#716c4a;--ink:#fff8ea;--quiet:#f2ecda;--pink:#f6a499;--sage:#abbfb6;--line:#928d6b;--surface:#625e40;--deep:#4f4b33;--burgundy:#662020;--focus:#ffceb7;--danger:#ffb4a8;color-scheme:dark;font-family:'Avenir Next',Avenir,'Trebuchet MS',sans-serif;color:var(--ink);background:var(--paper)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);min-height:100dvh}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.btn{border:1px solid var(--line);background:transparent;border-radius:100px;min-height:36px;padding:6px 14px;font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{background:var(--surface)}
+.btn.primary{background:var(--pink);border-color:var(--pink);color:var(--burgundy)}
+.btn.primary:hover{background:#ffbcb2}
+.btn.danger{color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 24px;background:var(--deep);border-bottom:1px solid var(--line)}
+.bar img{height:40px}
+.bar h1{font-family:Palatino,'Book Antiqua',serif;font-weight:400;font-size:22px;margin:0;flex:1}
+#status{font-size:12px;color:var(--quiet)}
+#status.error{color:var(--danger)}
+.layout{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:calc(100dvh - 65px)}
+aside{border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:65px;align-self:start;max-height:calc(100dvh - 65px);overflow:auto}
+aside h2,.group-head h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);font-weight:600;margin:0}
+.aside-head{display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px}
+#cat-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.cat{width:100%;border:1px solid transparent;background:none;border-radius:9px;padding:9px 10px;display:flex;align-items:center;gap:10px;text-align:left;font-size:14px}
+.cat:hover{background:var(--surface)}
+.cat[aria-current=true]{background:var(--pink);color:var(--burgundy)}
+.cat .name{flex:1;min-width:0;overflow-wrap:anywhere}
+.cat .num{font-size:11px;background:var(--surface);color:var(--quiet);border-radius:100px;padding:2px 8px}
+.cat[aria-current=true] .num{background:#fff0dc;color:var(--burgundy)}
+.cat.over{border-color:var(--focus);border-style:dashed}
+main{padding:22px 28px 80px;min-width:0}
+.cat-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+.cat-head h2{font-family:Palatino,'Book Antiqua',serif;font-weight:400;font-size:32px;margin:0;flex:1;min-width:200px}
+.hint{font-size:12px;color:var(--quiet);margin:0 0 16px}
+.toolbar{position:sticky;top:65px;z-index:10;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 0 12px;background:var(--paper)}
+.toolbar .sel-info{font-size:13px;margin-left:auto}
+.toolbar select{border:1px solid var(--line);background:var(--surface);border-radius:100px;min-height:36px;padding:6px 12px;font-size:13px;max-width:240px}
+.selbar{display:none;align-items:center;gap:8px;flex-wrap:wrap}
+.has-selection .selbar{display:flex}
+.upload input{position:absolute;width:1px;height:1px;opacity:0}
+.upload:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+.group{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;background:rgba(79,75,51,.35)}
+.group.unsorted{border-style:dashed}
+.group-head{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.group-head .title{font-size:16px;flex:1;min-width:120px;overflow-wrap:anywhere}
+.group-head .meta{font-size:12px;color:var(--quiet)}
+.zone{min-height:120px;padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;align-content:start;border-radius:0 0 14px 14px}
+.zone.over{background:rgba(246,164,153,.18);box-shadow:inset 0 0 0 2px var(--pink)}
+.zone .empty{grid-column:1/-1;align-self:center;text-align:center;font-size:13px;color:var(--quiet);padding:24px 8px}
+.thumb{position:relative;aspect-ratio:1;border-radius:10px;background:var(--surface);overflow:hidden;border:2px solid transparent}
+.thumb.before{box-shadow:-5px 0 0 -1px var(--pink)}
+.thumb.dragging{opacity:.4}
+.thumb{cursor:pointer}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.thumb .check{position:absolute;left:6px;top:6px;width:22px;height:22px;border-radius:50%;border:2px solid var(--ink);background:rgba(35,33,21,.45);display:grid;place-items:center;font-size:13px;pointer-events:none}
+.thumb.selected{border-color:var(--pink)}
+.thumb.selected .check{background:var(--pink);border-color:var(--pink);color:var(--burgundy)}
+.thumb .cover{position:absolute;left:6px;bottom:6px;font-size:10px;background:rgba(35,33,21,.75);border-radius:100px;padding:2px 8px;pointer-events:none}
+.thumb .more{position:absolute;right:6px;top:6px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(35,33,21,.7);font-size:18px;line-height:1;display:grid;place-items:center}
+.thumb .more:hover{background:var(--deep)}
+.menu{position:fixed;z-index:50;min-width:220px;max-width:min(320px,calc(100vw - 16px));max-height:min(420px,calc(100dvh - 16px));overflow:auto;background:var(--deep);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 16px 50px rgba(20,18,10,.5)}
+.menu[hidden]{display:none}
+.menu .label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--quiet);padding:8px 10px 4px}
+.menu button{display:block;width:100%;text-align:left;border:0;background:none;border-radius:8px;padding:8px 10px;font-size:14px}
+.menu button:hover,.menu button:focus-visible{background:var(--surface)}
+.menu hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+.menu .danger{color:var(--danger)}
+.notice{max-width:560px;margin:80px auto;padding:28px;border:1px solid var(--line);border-radius:16px;line-height:1.6}
+.notice code{background:var(--surface);padding:2px 6px;border-radius:6px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--deep);border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-size:13px;z-index:60;max-width:calc(100vw - 32px)}
+.toast[hidden]{display:none}
+@media(max-width:800px){
+  .bar{padding:10px 16px;flex-wrap:wrap}.bar h1{font-size:18px}
+  .layout{grid-template-columns:1fr}
+  aside{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px}
+  #cat-list{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .cat{white-space:nowrap;width:auto}
+  main{padding:16px 16px 80px}
+  .toolbar{top:0;position:static}
+  .zone{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <img src="logo.png?v=2" alt="OOPSIE">
+  <h1>Catalog admin</h1>
+  <span id="status" role="status" aria-live="polite"></span>
+  <a class="btn" href="index.html" target="_blank" rel="noopener">View site</a>
+  <button class="btn primary" id="publish" type="button">Publish</button>
+</header>
+<div id="app"></div>
+<div class="menu" id="menu" role="menu" hidden></div>
+<div class="toast" id="toast" role="alert" hidden></div>
+<template id="layout">
+  <div class="layout">
+    <aside>
+      <div class="aside-head"><h2>Categories</h2><button class="btn" type="button" id="new-category">+ New</button></div>
+      <ol id="cat-list"></ol>
+    </aside>
+    <main id="main"></main>
+  </div>
+</template>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const DRAG_TYPE = 'application/x-oopsie-photos';
+const ACCEPT = '.jpg,.jpeg,.png,.webp,.gif,.avif,image/jpeg,image/png,image/webp,image/gif,image/avif';
+
+let state = null;            // the catalog, as saved in catalog.json
+let currentId = null;        // selected category id
+let selected = new Set();    // selected photo paths in the current category
+let dragPaths = null;        // photos being dragged
+let saveChain = Promise.resolve();
+let pendingSaves = 0;
+
+// ---------- helpers ----------
+function el(tag, props = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') node.className = v;
+    else if (k.startsWith('on')) node.addEventListener(k.slice(2), v);
+    else if (k === 'text') node.textContent = v;
+    else if (v !== false && v != null) node.setAttribute(k, v === true ? '' : v);
+  }
+  node.append(...children.filter(c => c != null && c !== false));
+  return node;
+}
+function plural(n, word) { return n + ' ' + word + (n === 1 ? '' : 's'); }
+function slugify(name) {
+  return name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50) || 'category';
+}
+function allIds() {
+  const ids = new Set();
+  state.categories.forEach(c => { ids.add(c.id); c.products.forEach(p => ids.add(p.id)); });
+  return ids;
+}
+function uniqueId(base) {
+  const ids = allIds();
+  let id = base, n = 2;
+  while (ids.has(id)) id = base + '-' + n++;
+  return id;
+}
+function productId() { return uniqueId('p-' + Math.random().toString(36).slice(2, 10)); }
+function current() { return state.categories.find(c => c.id === currentId); }
+function photoCount(c) { return c.images.length + c.products.reduce((n, p) => n + p.images.length, 0); }
+function askName(message, value = '') {
+  const name = prompt(message, value);
+  if (name == null) return null;
+  const trimmed = name.trim().slice(0, 120);
+  return trimmed || null;
+}
+let toastTimer;
+function toast(message) {
+  const t = $('toast');
+  t.textContent = message;
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.hidden = true; }, 4000);
+}
+function setStatus(text, isError = false) {
+  $('status').textContent = text;
+  $('status').className = isError ? 'error' : '';
+}
+
+// ---------- server ----------
+async function api(method, url, body, headers = {}) {
+  const res = await fetch(url, { method, body, headers, cache: 'no-store' });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || data.message || ('HTTP ' + res.status));
+  return data;
+}
+
+function save() {
+  const snapshot = JSON.stringify(state);
+  pendingSaves++;
+  setStatus('Saving…');
+  saveChain = saveChain.then(async () => {
+    try {
+      await api('PUT', '/api/catalog', snapshot, { 'Content-Type': 'application/json' });
+      if (--pendingSaves === 0) setStatus('All changes saved · not yet published');
+    } catch (err) {
+      pendingSaves--;
+      setStatus('Save failed', true);
+      toast('Could not save: ' + err.message + '. Reloading the last saved catalog.');
+      state = await api('GET', '/api/catalog');
+      render();
+    }
+  });
+  return saveChain;
+}
+
+// ---------- catalog operations ----------
+// Where a photo lives: { cat, product (or null), list }
+function locate(path) {
+  for (const cat of state.categories) {
+    if (cat.images.includes(path)) return { cat, product: null, list: cat.images };
+    for (const product of cat.products) {
+      if (product.images.includes(path)) return { cat, product, list: product.images };
+    }
+  }
+  return null;
+}
+function targetList(catId, prodId) {
+  const cat = state.categories.find(c => c.id === catId);
+  if (!cat) return null;
+  if (!prodId) return cat.images;
+  const product = cat.products.find(p => p.id === prodId);
+  return product ? product.images : null;
+}
+// Move photos into a category's unsorted list (prodId null) or into a product,
+// optionally placed before another photo.
+function movePhotos(paths, catId, prodId, beforePath = null) {
+  const list = targetList(catId, prodId);
+  if (!list || !paths.length) return;
+  const moving = paths.filter(p => locate(p));
+  moving.forEach(p => { const at = locate(p); at.list.splice(at.list.indexOf(p), 1); });
+  let index = beforePath ? list.indexOf(beforePath) : -1;
+  if (index < 0) index = list.length;
+  list.splice(index, 0, ...moving);
+  moving.forEach(p => selected.delete(p));
+  save();
+  render();
+}
+function targetName(catId, prodId) {
+  const cat = state.categories.find(c => c.id === catId);
+  if (!prodId) return cat.name + ' · Unsorted';
+  return cat.products.find(p => p.id === prodId).name;
+}
+
+function newCategory() {
+  const name = askName('Name of the new category:');
+  if (!name) return;
+  const cat = { id: uniqueId(slugify(name)), name, products: [], images: [] };
+  state.categories.push(cat);
+  currentId = cat.id;
+  selected.clear();
+  save(); render();
+}
+function renameCategory() {
+  const cat = current();
+  const name = askName('Rename category:', cat.name);
+  if (!name || name === cat.name) return;
+  cat.name = name;
+  save(); render();
+}
+function moveCategory(delta) {
+  const i = state.categories.findIndex(c => c.id === currentId);
+  const j = i + delta;
+  if (j < 0 || j >= state.categories.length) return;
+  const [cat] = state.categories.splice(i, 1);
+  state.categories.splice(j, 0, cat);
+  save(); render();
+}
+function deleteCategory() {
+  const cat = current();
+  const n = photoCount(cat);
+  const msg = n
+    ? `Delete "${cat.name}" with its ${plural(cat.products.length, 'product')} and ${plural(n, 'photo')}? The photos are deleted from the repo too.`
+    : `Delete the empty category "${cat.name}"?`;
+  if (!confirm(msg)) return;
+  const i = state.categories.indexOf(cat);
+  state.categories.splice(i, 1);
+  currentId = (state.categories[i] || state.categories[i - 1] || {}).id || null;
+  selected.clear();
+  save(); render();
+}
+
+function newProduct(fromSelection = false) {
+  const cat = current();
+  const name = askName(fromSelection ? `Name of the new product (${plural(selected.size, 'photo')} go into it):` : 'Name of the new product:');
+  if (!name) return;
+  const product = { id: productId(), name, images: [] };
+  cat.products.push(product);
+  if (fromSelection) {
+    movePhotos(orderedSelection(), cat.id, product.id);
+    selected.clear();
+    render();
+  } else {
+    save(); render();
+  }
+}
+function renameProduct(product) {
+  const name = askName('Rename product:', product.name);
+  if (!name || name === product.name) return;
+  product.name = name;
+  save(); render();
+}
+function moveProduct(product, delta) {
+  const list = current().products;
+  const i = list.indexOf(product), j = i + delta;
+  if (j < 0 || j >= list.length) return;
+  list.splice(i, 1);
+  list.splice(j, 0, product);
+  save(); render();
+}
+function deleteProduct(product) {
+  const cat = current();
+  const msg = product.images.length
+    ? `Delete product "${product.name}"? Its ${plural(product.images.length, 'photo')} go back to Unsorted.`
+    : `Delete the empty product "${product.name}"?`;
+  if (!confirm(msg)) return;
+  cat.images.push(...product.images);
+  cat.products.splice(cat.products.indexOf(product), 1);
+  save(); render();
+}
+
+function deletePhotos(paths) {
+  if (!paths.length || !confirm(`Delete ${plural(paths.length, 'photo')}? They are removed from the repo.`)) return;
+  paths.forEach(p => { const at = locate(p); if (at) at.list.splice(at.list.indexOf(p), 1); selected.delete(p); });
+  save(); render();
+}
+function makeCover(path) {
+  const at = locate(path);
+  at.list.splice(at.list.indexOf(path), 1);
+  at.list.unshift(path);
+  save(); render();
+}
+
+// Selected photos in on-screen order.
+function orderedSelection() {
+  const cat = current();
+  if (!cat) return [];
+  const order = [...cat.images, ...cat.products.flatMap(p => p.images)];
+  return order.filter(p => selected.has(p));
+}
+
+async function uploadFiles(files, catId, prodId) {
+  const list = [...files];
+  if (!list.length) return;
+  let added = 0, skipped = 0;
+  for (let i = 0; i < list.length; i++) {
+    setStatus(`Uploading ${i + 1} / ${list.length}…`);
+    try {
+      const { path } = await api('POST', '/api/upload?name=' + encodeURIComponent(list[i].name), list[i]);
+      if (locate(path)) { skipped++; continue; }
+      const target = targetList(catId, prodId);
+      if (!target) break;
+      target.push(path);
+      added++;
+    } catch (err) {
+      toast(`${list[i].name}: ${err.message}`);
+    }
+  }
+  if (added) { save(); render(); } else setStatus('');
+  if (skipped) toast(`${plural(skipped, 'photo')} skipped because ${skipped === 1 ? 'it is' : 'they are'} already in the catalog.`);
+}
+
+// ---------- menu ----------
+function closeMenu() { $('menu').hidden = true; }
+function openMenu(anchor, build) {
+  const menu = $('menu');
+  menu.replaceChildren(...build());
+  menu.hidden = false;
+  const r = anchor.getBoundingClientRect();
+  const w = menu.offsetWidth, h = menu.offsetHeight;
+  menu.style.left = Math.max(8, Math.min(r.right - w, innerWidth - w - 8)) + 'px';
+  menu.style.top = (r.bottom + 6 + h > innerHeight ? Math.max(8, r.top - h - 6) : r.bottom + 6) + 'px';
+  menu.querySelector('button')?.focus();
+}
+function item(label, action, cls) {
+  return el('button', { type: 'button', role: 'menuitem', class: cls, onclick: () => { closeMenu(); action(); } }, label);
+}
+// Menu entries for moving `paths`, used by the per-photo menu.
+function moveItems(anchor, paths) {
+  const cat = current();
+  const here = paths.length === 1 ? locate(paths[0]) : null;
+  const items = [el('div', { class: 'label', text: 'Move to' })];
+  if (!here || here.product) items.push(item('Unsorted', () => movePhotos(paths, cat.id, null)));
+  cat.products.forEach(p => {
+    if (!here || here.product !== p) items.push(item('▸ ' + p.name, () => movePhotos(paths, cat.id, p.id)));
+  });
+  items.push(item('+ New product…', () => {
+    const name = askName('Name of the new product:');
+    if (!name) return;
+    const product = { id: productId(), name, images: [] };
+    cat.products.push(product);
+    movePhotos(paths, cat.id, product.id);
+  }));
+  if (state.categories.length > 1) {
+    items.push(item('Another category…', () => openMenu(anchor, () => [
+      el('div', { class: 'label', text: 'Move to category' }),
+      ...state.categories.filter(c => c.id !== cat.id).map(c => item(c.name, () => movePhotos(paths, c.id, null))),
+    ])));
+  }
+  return items;
+}
+function photoMenu(anchor, path) {
+  const paths = selected.has(path) && selected.size > 1 ? orderedSelection() : [path];
+  openMenu(anchor, () => {
+    const at = locate(path);
+    const items = moveItems(anchor, paths);
+    items.push(el('hr'));
+    if (paths.length === 1 && at.product && at.list[0] !== path) items.push(item('Make cover photo', () => makeCover(path)));
+    if (paths.length === 1) items.push(item('Open full size', () => window.open(path, '_blank', 'noopener')));
+    items.push(item(paths.length > 1 ? `Delete ${plural(paths.length, 'photo')}` : 'Delete photo', () => deletePhotos(paths), 'danger'));
+    return items;
+  });
+}
+document.addEventListener('click', e => {
+  if (!$('menu').hidden && !$('menu').contains(e.target) && !e.target.closest('.more')) closeMenu();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (!$('menu').hidden) { closeMenu(); return; }
+    if (selected.size) { selected.clear(); render(); }
+  }
+});
+addEventListener('resize', closeMenu);
+addEventListener('scroll', closeMenu, true);
+
+// ---------- drag and drop ----------
+function hasPhotos(e) { return dragPaths && e.dataTransfer.types.includes(DRAG_TYPE); }
+function hasFiles(e) { return !dragPaths && e.dataTransfer.types.includes('Files'); }
+
+function makeDropTarget(node, catId, prodId, allowFiles) {
+  node.addEventListener('dragover', e => {
+    if (!hasPhotos(e) && !(allowFiles && hasFiles(e))) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = hasPhotos(e) ? 'move' : 'copy';
+    node.classList.add('over');
+    document.querySelectorAll('.thumb.before').forEach(t => t.classList.remove('before'));
+    const before = hasPhotos(e) && e.target.closest('.thumb');
+    if (before && node.contains(before)) before.classList.add('before');
+  });
+  node.addEventListener('dragleave', e => {
+    if (!node.contains(e.relatedTarget)) {
+      node.classList.remove('over');
+      node.querySelectorAll('.thumb.before').forEach(t => t.classList.remove('before'));
+    }
+  });
+  node.addEventListener('drop', e => {
+    node.classList.remove('over');
+    document.querySelectorAll('.thumb.before').forEach(t => t.classList.remove('before'));
+    if (hasPhotos(e)) {
+      e.preventDefault();
+      const before = e.target.closest('.thumb');
+      const paths = dragPaths;
+      dragPaths = null;
+      movePhotos(paths, catId, prodId, before && node.contains(before) ? before.dataset.path : null);
+      toast(`Moved ${plural(paths.length, 'photo')} to ${targetName(catId, prodId)}.`);
+    } else if (allowFiles && hasFiles(e)) {
+      e.preventDefault();
+      uploadFiles(e.dataTransfer.files, catId, prodId);
+    }
+  });
+}
+// Dropping files outside a drop zone must not navigate away from the admin.
+addEventListener('dragover', e => { if (e.dataTransfer.types.includes('Files')) e.preventDefault(); });
+addEventListener('drop', e => { if (!e.defaultPrevented) e.preventDefault(); });
+
+// ---------- rendering ----------
+function thumb(path, isCover) {
+  const isSelected = selected.has(path);
+  const toggle = () => { selected.has(path) ? selected.delete(path) : selected.add(path); render(); };
+  // The tile itself is the selectable element (a <button> inside a draggable
+  // element blocks dragging in Firefox).
+  const node = el('div', {
+    class: 'thumb' + (isSelected ? ' selected' : ''), draggable: 'true', 'data-path': path,
+    role: 'checkbox', tabindex: '0', 'aria-checked': String(isSelected), 'aria-label': 'Select photo',
+    onclick: e => { if (!e.target.closest('.more')) toggle(); },
+    onkeydown: e => { if ((e.key === ' ' || e.key === 'Enter') && e.target === e.currentTarget) { e.preventDefault(); toggle(); } },
+  },
+    el('img', { src: path, alt: '', loading: 'lazy', decoding: 'async', draggable: 'false' }),
+    el('span', { class: 'check', 'aria-hidden': 'true', text: isSelected ? '✓' : '' }),
+    isCover ? el('span', { class: 'cover', text: 'Cover' }) : null,
+    el('button', {
+      type: 'button', class: 'more', 'aria-label': 'Photo options', 'aria-haspopup': 'menu',
+      onclick: e => { e.stopPropagation(); photoMenu(e.currentTarget, path); },
+    }, '⋯'),
+  );
+  node.addEventListener('dragstart', e => {
+    dragPaths = selected.has(path) ? orderedSelection() : [path];
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData(DRAG_TYPE, JSON.stringify(dragPaths));
+    e.dataTransfer.setData('text/plain', dragPaths.join('\n'));
+    document.querySelectorAll('.thumb').forEach(t => { if (dragPaths.includes(t.dataset.path)) t.classList.add('dragging'); });
+  });
+  node.addEventListener('dragend', () => {
+    dragPaths = null;
+    document.querySelectorAll('.dragging,.over,.before').forEach(t => t.classList.remove('dragging', 'over', 'before'));
+  });
+  return node;
+}
+
+function group({ title, meta, actions, images, catId, prodId, emptyText, cls }) {
+  const zone = el('div', { class: 'zone' },
+    ...images.map((p, i) => thumb(p, prodId && i === 0)),
+    images.length ? null : el('div', { class: 'empty', text: emptyText }));
+  makeDropTarget(zone, catId, prodId, true);
+  return el('section', { class: 'group ' + (cls || '') },
+    el('div', { class: 'group-head' }, el('span', { class: 'title', text: title }), el('span', { class: 'meta', text: meta }), ...actions),
+    zone);
+}
+
+function renderSidebar() {
+  const list = $('cat-list');
+  list.replaceChildren(...state.categories.map(c => {
+    const button = el('button', {
+      type: 'button', class: 'cat', 'aria-current': String(c.id === currentId),
+      onclick: () => { if (c.id !== currentId) { currentId = c.id; selected.clear(); render(); scrollTo(0, 0); } },
+    }, el('span', { class: 'name', text: c.name }), el('span', { class: 'num', text: photoCount(c) }));
+    if (c.id !== currentId) makeDropTarget(button, c.id, null, false);
+    return el('li', {}, button);
+  }));
+}
+
+function renderMain() {
+  const main = $('main');
+  const cat = current();
+  if (!cat) {
+    main.replaceChildren(el('p', { class: 'hint', text: 'No categories yet. Use “+ New” to add one.' }));
+    return;
+  }
+  for (const p of selected) if (locate(p)?.cat !== cat) selected.delete(p);
+  const index = state.categories.indexOf(cat);
+
+  const fileInput = el('input', { type: 'file', multiple: true, accept: ACCEPT, onchange: e => { uploadFiles(e.target.files, cat.id, null); e.target.value = ''; } });
+
+  // "Move selected to…" select with every possible target.
+  const moveSelect = el('select', { 'aria-label': 'Move selected photos to' },
+    el('option', { value: '', text: 'Move selected to…' }),
+    el('optgroup', { label: 'This category' },
+      el('option', { value: cat.id + '|', text: 'Unsorted' }),
+      ...cat.products.map(p => el('option', { value: cat.id + '|' + p.id, text: p.name }))),
+    state.categories.length > 1 ? el('optgroup', { label: 'Other categories' },
+      ...state.categories.filter(c => c.id !== cat.id).map(c => el('option', { value: c.id + '|', text: c.name }))) : null);
+  moveSelect.addEventListener('change', () => {
+    if (!moveSelect.value) return;
+    const [catId, prodId] = moveSelect.value.split('|');
+    const paths = orderedSelection();
+    movePhotos(paths, catId, prodId || null);
+    toast(`Moved ${plural(paths.length, 'photo')} to ${targetName(catId, prodId || null)}.`);
+    selected.clear();
+    render();
+  });
+
+  const toolbar = el('div', { class: 'toolbar' + (selected.size ? ' has-selection' : '') },
+    el('label', { class: 'btn primary upload' }, '⤒ Upload photos', fileInput),
+    el('button', { type: 'button', class: 'btn', onclick: () => newProduct(false) }, '+ New product'),
+    el('div', { class: 'selbar' },
+      el('span', { class: 'sel-info', text: plural(selected.size, 'photo') + ' selected' }),
+      moveSelect,
+      el('button', { type: 'button', class: 'btn', onclick: () => newProduct(true) }, 'New product from selection'),
+      el('button', { type: 'button', class: 'btn danger', onclick: () => deletePhotos(orderedSelection()) }, 'Delete'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { selected.clear(); render(); } }, 'Clear')));
+
+  const products = cat.products.map((p, i) => group({
+    title: p.name,
+    meta: plural(p.images.length, 'photo'),
+    images: p.images, catId: cat.id, prodId: p.id,
+    emptyText: 'Drag photos here, or use a photo’s ⋯ menu.',
+    actions: [
+      el('button', { type: 'button', class: 'btn', 'aria-label': `Move ${p.name} up`, disabled: i === 0, onclick: () => moveProduct(p, -1) }, '↑'),
+      el('button', { type: 'button', class: 'btn', 'aria-label': `Move ${p.name} down`, disabled: i === cat.products.length - 1, onclick: () => moveProduct(p, 1) }, '↓'),
+      el('button', { type: 'button', class: 'btn', onclick: () => renameProduct(p) }, 'Rename'),
+      el('button', { type: 'button', class: 'btn danger', onclick: () => deleteProduct(p) }, 'Delete'),
+    ],
+  }));
+
+  main.replaceChildren(
+    el('div', { class: 'cat-head' },
+      el('h2', { text: cat.name }),
+      el('button', { type: 'button', class: 'btn', 'aria-label': 'Move category up', disabled: index === 0, onclick: () => moveCategory(-1) }, '↑'),
+      el('button', { type: 'button', class: 'btn', 'aria-label': 'Move category down', disabled: index === state.categories.length - 1, onclick: () => moveCategory(1) }, '↓'),
+      el('button', { type: 'button', class: 'btn', onclick: renameCategory }, 'Rename'),
+      el('button', { type: 'button', class: 'btn danger', onclick: deleteCategory }, 'Delete')),
+    el('p', { class: 'hint', text: 'Tap photos to select them. Drag them onto a product (or a category on the left), or use the ⋯ menu or “Move selected to…”. Drop photo files from your computer onto any box to upload them there.' }),
+    toolbar,
+    group({
+      title: 'Unsorted photos', cls: 'unsorted',
+      meta: plural(cat.images.length, 'photo') + ' · shown as single photos on the site',
+      images: cat.images, catId: cat.id, prodId: null,
+      emptyText: 'No unsorted photos. Upload some, or drop them here.',
+      actions: [],
+    }),
+    ...products);
+}
+
+function render() {
+  if (currentId && !current()) currentId = null;
+  if (!currentId && state.categories.length) currentId = state.categories[0].id;
+  const focusedPath = document.activeElement?.closest?.('.thumb')?.dataset.path;
+  renderSidebar();
+  renderMain();
+  if (focusedPath) document.querySelector(`.thumb[data-path="${CSS.escape(focusedPath)}"]`)?.focus({ preventScroll: true });
+}
+
+// ---------- start ----------
+$('publish').addEventListener('click', async () => {
+  const button = $('publish');
+  button.disabled = true;
+  setStatus('Publishing…');
+  try {
+    await saveChain;
+    const res = await api('POST', '/api/publish');
+    setStatus('Published');
+    toast(res.message);
+  } catch (err) {
+    setStatus('Publish failed', true);
+    toast('Publish failed: ' + err.message);
+  } finally {
+    button.disabled = false;
+  }
+});
+addEventListener('beforeunload', e => { if (pendingSaves) e.preventDefault(); });
+
+(async function start() {
+  try {
+    state = await api('GET', '/api/catalog');
+  } catch {
+    $('publish').hidden = true;
+    $('app').replaceChildren(el('div', { class: 'notice' },
+      el('h2', { text: 'The admin runs on your computer' }),
+      el('p', {}, 'This page edits the files in the repo, so it needs the local server. Double-click ',
+        el('code', { text: 'start_server.command' }), ' (or run ', el('code', { text: 'python3 serve.py' }),
+        ') in the project folder, then open ', el('code', { text: 'http://localhost:8080/admin.html' }), '.')));
+    return;
+  }
+  $('app').replaceChildren($('layout').content.cloneNode(true));
+  $('new-category').addEventListener('click', newCategory);
+  render();
+})();
+</script>
+</body>
+</html>
