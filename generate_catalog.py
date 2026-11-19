@@ -140,7 +140,7 @@ def generate_catalog_html(catalog, output_path='index.html'):
         f'<span class="count" aria-label="{item_count(cat)} items">{item_count(cat)}</span></button>'
         for i, cat in enumerate(cats)
     )
-    data_json = json.dumps({'version': 1, 'categories': cats}, ensure_ascii=False).replace('</', '<\\/')
+    data_json = json.dumps({'version': 1, 'categories': cats}, ensure_ascii=False).replace('<', '\\u003c')
     page = (
         HTML_TEMPLATE
         .replace('__CATEGORY_BUTTONS__', buttons)
