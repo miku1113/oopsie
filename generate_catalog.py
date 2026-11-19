@@ -191,7 +191,7 @@ HTML_TEMPLATE = r"""<!doctype html>
 <footer class="end"><span>__CATEGORY_COUNT__ categories to fall in love with.</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>A little world of OOPSIE.</span></footer>
 </main>
 <dialog class="gallery" id="gallery" aria-labelledby="gallery-title"><header class="gallery-head"><div class="gallery-heading"><h2 id="gallery-title"></h2><p id="gallery-meta"></p></div><button class="close" id="close-gallery" autofocus>All categories <span aria-hidden="true">×</span></button></header><div class="photos" id="photos"></div></dialog>
-<dialog class="viewer" id="viewer" aria-label="Full-size photo viewer"><header class="viewer-head"><p id="viewer-label" aria-live="polite"></p><button class="close" id="close-viewer" autofocus>Back to gallery ×</button></header><div class="viewer-stage"><div class="viewer-thumbs" id="viewer-thumbs" aria-label="All photos" hidden></div><div class="viewer-main"><img id="full-image" alt=""><button class="step previous" id="previous" aria-label="Previous photo">‹</button><button class="step next" id="next" aria-label="Next photo">›</button></div></div><div class="viewer-foot">Use the arrow keys to browse. Press Esc to go back.</div></dialog>
+<dialog class="viewer" id="viewer" aria-label="Full-size photo viewer"><header class="viewer-head"><p id="viewer-label" aria-live="polite"></p><button class="close" id="close-viewer" autofocus>Back to gallery ×</button></header><div class="viewer-stage"><div class="viewer-thumbs" id="viewer-thumbs" role="group" aria-label="All photos" hidden></div><div class="viewer-main"><img id="full-image" alt=""><button class="step previous" id="previous" aria-label="Previous photo">‹</button><button class="step next" id="next" aria-label="Next photo">›</button></div></div><div class="viewer-foot">Use the arrow keys to browse. Press Esc to go back.</div></dialog>
 <script>
 let collection = (__CATALOG_JSON__).categories;
 const $ = id => document.getElementById(id);
@@ -338,8 +338,8 @@ function openViewer(title, images, index) {
     return button;
   }));
   rail.hidden = images.length < 2;
+  viewer.showModal();  // open first so the active thumb can scroll into view
   updateViewer();
-  viewer.showModal();
 }
 
 function updateViewer() {
