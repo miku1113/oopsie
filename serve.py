@@ -4,7 +4,8 @@ Oopsie Handcrafted Studio - local server + catalog admin
 
 - Serves the catalog on your Wi-Fi network so phones can open it
 - /admin.html lets you add, rename, delete and reorder categories and products,
-  upload and delete photos, and move photos into products (drag and drop or menu)
+  upload photos, move them into products (drag and drop or menu), and delete them
+  to a restorable Trash (photo files are never deleted)
 - Every change is saved to catalog.json + images/ in this repo and index.html is rebuilt
 - "Publish" in the admin commits those files and pushes them to GitHub (live site)
 """
@@ -23,7 +24,7 @@ import urllib.parse
 import webbrowser
 
 from generate_catalog import (
-    CatalogError, IMAGE_EXTS, IMAGES_DIR, catalog_images, load_catalog, save_catalog,
+    CatalogError, IMAGE_EXTS, IMAGES_DIR, load_catalog, save_catalog,
 )
 
 MAX_UPLOAD_BYTES = 40 * 1024 * 1024
@@ -53,17 +54,10 @@ def store_image(data, filename):
 
 
 def update_catalog(new_catalog):
-    """Save a full catalog. Photos that were in the old catalog but not the new one are deleted."""
+    """Save a full catalog. Photo files are never deleted: the admin moves deleted
+    photos to the catalog's trash, so they stay in the repo and can be restored."""
     with _lock:
-        before = set(catalog_images(load_catalog('.')))
-        saved = save_catalog(new_catalog, '.')
-        removed = before - set(catalog_images(saved))
-        for path in removed:
-            try:
-                os.remove(path)
-            except FileNotFoundError:
-                pass
-        return saved
+        return save_catalog(new_catalog, '.')
 
 
 def run_git(*args, timeout=60):

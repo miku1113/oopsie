@@ -38,6 +38,10 @@ aside h2,.group-head h3{font-size:12px;letter-spacing:.08em;text-transform:upper
 .cat .num{font-size:11px;background:var(--surface);color:var(--quiet);border-radius:100px;padding:2px 8px}
 .cat[aria-current=true] .num{background:#fff0dc;color:var(--burgundy)}
 .cat.over{border-color:var(--focus);border-style:dashed}
+.trash-link{margin-top:14px;border-top-color:var(--line)}
+.trash-card{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--quiet)}
+.trash-card .thumb{cursor:default}
+.trash-card .btn{justify-content:center}
 main{padding:22px 28px 80px;min-width:0}
 .cat-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
 .cat-head h2{font-family:Palatino,'Book Antiqua',serif;font-weight:400;font-size:32px;margin:0;flex:1;min-width:200px}
@@ -49,6 +53,10 @@ main{padding:22px 28px 80px;min-width:0}
 .has-selection .selbar{display:flex}
 .upload input{position:absolute;width:1px;height:1px;opacity:0}
 .upload:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+.dropzone{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;border:2px dashed var(--line);border-radius:14px;padding:18px 16px;margin-bottom:6px;text-align:center;cursor:pointer;font-size:14px}
+.dropzone small{font-size:12px;color:var(--quiet)}
+.dropzone:hover,.dropzone.over{border-color:var(--pink);background:rgba(246,164,153,.12)}
+.dragging-files .zone:not(.trash-grid),.dragging-files .dropzone{outline:2px dashed var(--pink);outline-offset:-6px}
 .group{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;background:rgba(79,75,51,.35)}
 .group.unsorted{border-style:dashed}
 .group-head{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -107,6 +115,7 @@ main{padding:22px 28px 80px;min-width:0}
     <aside>
       <div class="aside-head"><h2>Categories</h2><button class="btn" type="button" id="new-category">+ New</button></div>
       <ol id="cat-list"></ol>
+      <button type="button" class="cat trash-link" id="trash-link"><span class="name">🗑 Trash</span><span class="num" id="trash-count">0</span></button>
     </aside>
     <main id="main"></main>
   </div>
@@ -120,6 +129,7 @@ const ACCEPT = '.jpg,.jpeg,.png,.webp,.gif,.avif,image/jpeg,image/png,image/webp
 let state = null;            // the catalog, as saved in catalog.json
 let currentId = null;        // selected category id
 let selected = new Set();    // selected photo paths in the current category
+const TRASH = '__trash__';   // currentId value for the Trash view
 let dragPaths = null;        // photos being dragged
 let saveChain = Promise.resolve();
 let pendingSaves = 0;
@@ -194,6 +204,7 @@ function save() {
       setStatus('Save failed', true);
       toast('Could not save: ' + err.message + '. Reloading the last saved catalog.');
       state = await api('GET', '/api/catalog');
+      state.trash = state.trash || [];
       render();
     }
   });
@@ -270,9 +281,10 @@ function deleteCategory() {
   const cat = current();
   const n = photoCount(cat);
   const msg = n
-    ? `Delete "${cat.name}" with its ${plural(cat.products.length, 'product')} and ${plural(n, 'photo')}? The photos are deleted from the repo too.`
+    ? `Delete "${cat.name}" with its ${plural(cat.products.length, 'product')}? Its ${plural(n, 'photo')} go to Trash, where you can restore them.`
     : `Delete the empty category "${cat.name}"?`;
   if (!confirm(msg)) return;
+  trashPhotos([...cat.products.flatMap(p => p.images), ...cat.images]);
   const i = state.categories.indexOf(cat);
   state.categories.splice(i, 1);
   currentId = (state.categories[i] || state.categories[i - 1] || {}).id || null;
@@ -319,10 +331,53 @@ function deleteProduct(product) {
   save(); render();
 }
 
+// Deleting never removes files: photos move to state.trash with where they came
+// from, stay in images/, and can be restored from the Trash view.
+function trashPhotos(paths) {
+  const deletedAt = new Date().toISOString();
+  paths.forEach(p => {
+    const at = locate(p);
+    if (!at) return;
+    at.list.splice(at.list.indexOf(p), 1);
+    state.trash.push({
+      path: p, deletedAt,
+      categoryId: at.cat.id, categoryName: at.cat.name,
+      productId: at.product ? at.product.id : null, productName: at.product ? at.product.name : null,
+    });
+    selected.delete(p);
+  });
+}
 function deletePhotos(paths) {
-  if (!paths.length || !confirm(`Delete ${plural(paths.length, 'photo')}? They are removed from the repo.`)) return;
-  paths.forEach(p => { const at = locate(p); if (at) at.list.splice(at.list.indexOf(p), 1); selected.delete(p); });
+  if (!paths.length || !confirm(`Move ${plural(paths.length, 'photo')} to Trash? You can restore ${paths.length === 1 ? 'it' : 'them'} from Trash.`)) return;
+  trashPhotos(paths);
   save(); render();
+  toast(`Moved ${plural(paths.length, 'photo')} to Trash.`);
+}
+// Put a trashed photo back where it was, recreating its category or product if needed.
+function restoreEntry(entry) {
+  let cat = state.categories.find(c => c.id === entry.categoryId);
+  if (!cat) {
+    cat = { id: uniqueId(entry.categoryId || slugify(entry.categoryName || 'restored')), name: entry.categoryName || 'Restored', products: [], images: [] };
+    state.categories.push(cat);
+  }
+  let list = cat.images;
+  if (entry.productId) {
+    let product = cat.products.find(p => p.id === entry.productId);
+    if (!product) {
+      product = { id: uniqueId(entry.productId), name: entry.productName || 'Restored product', images: [] };
+      cat.products.push(product);
+    }
+    list = product.images;
+  }
+  list.push(entry.path);
+  state.trash.splice(state.trash.indexOf(entry), 1);
+  return cat;
+}
+function restore(entries) {
+  if (!entries.length) return;
+  const cats = new Set(entries.map(e => restoreEntry(e).name));
+  save(); render();
+  toast(`Restored ${plural(entries.length, 'photo')} to ${[...cats].join(', ')}.`);
 }
 function makeCover(path) {
   const at = locate(path);
@@ -350,6 +405,8 @@ async function uploadFiles(files, catId, prodId) {
       if (locate(path)) { skipped++; continue; }
       const target = targetList(catId, prodId);
       if (!target) break;
+      const trashed = state.trash.findIndex(e => e.path === path);
+      if (trashed >= 0) state.trash.splice(trashed, 1);
       target.push(path);
       added++;
     } catch (err) {
@@ -464,6 +521,20 @@ function makeDropTarget(node, catId, prodId, allowFiles) {
 // Dropping files outside a drop zone must not navigate away from the admin.
 addEventListener('dragover', e => { if (e.dataTransfer.types.includes('Files')) e.preventDefault(); });
 addEventListener('drop', e => { if (!e.defaultPrevented) e.preventDefault(); });
+// While files from the computer are dragged over the page, outline every place they can go.
+let fileDragDepth = 0;
+const endFileDrag = () => { fileDragDepth = 0; document.body.classList.remove('dragging-files'); };
+addEventListener('dragenter', e => {
+  if (!e.dataTransfer.types.includes('Files')) return;
+  fileDragDepth++;
+  document.body.classList.add('dragging-files');
+});
+addEventListener('dragleave', e => {
+  if (!e.dataTransfer.types.includes('Files')) return;
+  if (--fileDragDepth <= 0) endFileDrag();
+});
+addEventListener('drop', endFileDrag, true);
+addEventListener('dragend', endFileDrag, true);
 
 // ---------- rendering ----------
 function thumb(path, isCover) {
@@ -519,6 +590,31 @@ function renderSidebar() {
     if (c.id !== currentId) makeDropTarget(button, c.id, null, false);
     return el('li', {}, button);
   }));
+  $('trash-count').textContent = state.trash.length;
+  $('trash-link').setAttribute('aria-current', String(currentId === TRASH));
+}
+
+function renderTrash() {
+  const main = $('main');
+  const entries = [...state.trash].reverse();  // newest first
+  const card = entry => {
+    const from = entry.categoryName + (entry.productName ? ' › ' + entry.productName : ' · Unsorted');
+    const when = entry.deletedAt ? new Date(entry.deletedAt).toLocaleString() : '';
+    return el('div', { class: 'trash-card' },
+      el('div', { class: 'thumb' }, el('img', { src: entry.path, alt: '', loading: 'lazy', decoding: 'async' })),
+      el('span', { text: from }),
+      when ? el('span', { text: 'Deleted ' + when }) : null,
+      el('button', { type: 'button', class: 'btn', onclick: () => restore([entry]) }, 'Restore'));
+  };
+  main.replaceChildren(
+    el('div', { class: 'cat-head' },
+      el('h2', { text: 'Trash' }),
+      entries.length ? el('button', { type: 'button', class: 'btn', onclick: () => restore([...state.trash]) }, 'Restore all') : null),
+    el('p', { class: 'hint', text: 'Deleted photos stay in the repo and are hidden from the site. Restore puts a photo back where it was, and recreates its category or product if that was deleted too.' }),
+    el('section', { class: 'group' },
+      el('div', { class: 'zone trash-grid' },
+        ...entries.map(card),
+        entries.length ? null : el('div', { class: 'empty', text: 'Trash is empty.' }))));
 }
 
 function renderMain() {
@@ -551,8 +647,13 @@ function renderMain() {
     render();
   });
 
+  const dropzone = el('label', { class: 'dropzone upload' },
+    el('strong', { text: '⤒ Drop photos here to upload' }),
+    el('small', { text: 'One or many at once · or click to choose files · they go to Unsorted' }),
+    fileInput);
+  makeDropTarget(dropzone, cat.id, null, true);
+
   const toolbar = el('div', { class: 'toolbar' + (selected.size ? ' has-selection' : '') },
-    el('label', { class: 'btn primary upload' }, '⤒ Upload photos', fileInput),
     el('button', { type: 'button', class: 'btn', onclick: () => newProduct(false) }, '+ New product'),
     el('div', { class: 'selbar' },
       el('span', { class: 'sel-info', text: plural(selected.size, 'photo') + ' selected' }),
@@ -565,7 +666,7 @@ function renderMain() {
     title: p.name,
     meta: plural(p.images.length, 'photo'),
     images: p.images, catId: cat.id, prodId: p.id,
-    emptyText: 'Drag photos here, or use a photo’s ⋯ menu.',
+    emptyText: 'Drag photos here (from this page or your computer), or use a photo’s ⋯ menu.',
     actions: [
       el('button', { type: 'button', class: 'btn', 'aria-label': `Move ${p.name} up`, disabled: i === 0, onclick: () => moveProduct(p, -1) }, '↑'),
       el('button', { type: 'button', class: 'btn', 'aria-label': `Move ${p.name} down`, disabled: i === cat.products.length - 1, onclick: () => moveProduct(p, 1) }, '↓'),
@@ -581,7 +682,8 @@ function renderMain() {
       el('button', { type: 'button', class: 'btn', 'aria-label': 'Move category down', disabled: index === state.categories.length - 1, onclick: () => moveCategory(1) }, '↓'),
       el('button', { type: 'button', class: 'btn', onclick: renameCategory }, 'Rename'),
       el('button', { type: 'button', class: 'btn danger', onclick: deleteCategory }, 'Delete')),
-    el('p', { class: 'hint', text: 'Tap photos to select them. Drag them onto a product (or a category on the left), or use the ⋯ menu or “Move selected to…”. Drop photo files from your computer onto any box to upload them there.' }),
+    el('p', { class: 'hint', text: 'Tap photos to select them. Drag them onto a product (or a category on the left), or use the ⋯ menu or “Move selected to…”. Drop photo files from your computer anywhere on this page to upload them to Unsorted, or onto a product to upload straight into it.' }),
+    dropzone,
     toolbar,
     group({
       title: 'Unsorted photos', cls: 'unsorted',
@@ -594,6 +696,11 @@ function renderMain() {
 }
 
 function render() {
+  if (currentId === TRASH) {
+    renderSidebar();
+    renderTrash();
+    return;
+  }
   if (currentId && !current()) currentId = null;
   if (!currentId && state.categories.length) currentId = state.categories[0].id;
   const focusedPath = document.activeElement?.closest?.('.thumb')?.dataset.path;
@@ -634,7 +741,16 @@ addEventListener('beforeunload', e => { if (pendingSaves) e.preventDefault(); })
     return;
   }
   $('app').replaceChildren($('layout').content.cloneNode(true));
+  state.trash = state.trash || [];
   $('new-category').addEventListener('click', newCategory);
+  $('trash-link').addEventListener('click', () => { currentId = TRASH; selected.clear(); render(); scrollTo(0, 0); });
+  // Files dropped anywhere else on a category page upload to its Unsorted photos.
+  $('main').addEventListener('dragover', e => { if (!dragPaths && e.dataTransfer.types.includes('Files') && current()) e.preventDefault(); });
+  $('main').addEventListener('drop', e => {
+    if (e.defaultPrevented || dragPaths || !e.dataTransfer.files.length || currentId === TRASH || !current()) return;
+    e.preventDefault();
+    uploadFiles(e.dataTransfer.files, currentId, null);
+  });
   render();
 })();
 </script>
