@@ -85,6 +85,18 @@ def validate_catalog(catalog, base_dir='.'):
             check_images(product.get('images'), f'product {product["id"]}')
         check_images(cat.get('images'), f'category {cat["id"]}')
 
+    # Deleted photos: kept in images/ so they can be restored from the admin.
+    trash = catalog.get('trash', [])
+    if not isinstance(trash, list):
+        raise CatalogError('trash must be a list')
+    for entry in trash:
+        if not isinstance(entry, dict):
+            raise CatalogError('each trash entry must be an object')
+        check_images([entry.get('path')], 'trash')
+        for key in ('deletedAt', 'categoryId', 'categoryName', 'productId', 'productName'):
+            if entry.get(key) is not None and not isinstance(entry[key], str):
+                raise CatalogError(f'trash entry {key} must be text')
+
 
 def clean_catalog(catalog):
     """Return only the known fields, with trimmed names."""
@@ -101,6 +113,10 @@ def clean_catalog(catalog):
                 'images': list(cat['images']),
             }
             for cat in catalog['categories']
+        ],
+        'trash': [
+            {k: entry.get(k) for k in ('path', 'deletedAt', 'categoryId', 'categoryName', 'productId', 'productName')}
+            for entry in catalog.get('trash', [])
         ],
     }
 
